@@ -1,6 +1,15 @@
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+        pathname: "/photos/**",
+      },
+    ],
+  },
   // i18n: {
   //   locales: ["ar", "en"],
   //   defaultLocale: "ar",

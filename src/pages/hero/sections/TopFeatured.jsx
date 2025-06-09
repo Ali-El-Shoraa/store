@@ -15,7 +15,7 @@ import ProductCard from "@/components/ProductCard";
 import ProductCardSkeleton from "@/components/skeleton/ProductCardSkeleton";
 import HeaderSection from "@/components/HeaderSection";
 
-export default function FeaturedProducts() {
+export default function TopFeatured() {
   const [activeCategory, setActiveCategory] = useState("groceries");
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState(allProducts.groceries);
@@ -45,7 +45,7 @@ export default function FeaturedProducts() {
       className=""
     >
       <div className="flex flex-col gap-4 md:flex-row rtl:md:flex-row-reverse md:items-center md:justify-between">
-        <HeaderSection title={`Top Best Selling`} subTitle={`Product`} />
+        <HeaderSection title={`Top Featured`} subTitle={`Product`} />
 
         <TabsList className="grid w-full grid-cols-4 md:w-auto">
           {categories.map((category) => (
