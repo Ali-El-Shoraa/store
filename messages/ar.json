@@ -1,0 +1,34 @@
+{
+  "common": {
+    "searchLanguages": "البحث عن اللغات...",
+    "noLanguageFound": "لم يتم العثور على لغة.",
+    "selectLanguage": "اختر اللغة"
+  },
+  "header": {
+    "welcome": "مرحباً بك في متجرنا",
+    "selectLanguage": "اللغة",
+    "storeName": "متجرك",
+    "home": "الرئيسية",
+    "products": "المنتجات",
+    "categories": "الفئات",
+    "about": "حول",
+    "search": "بحث",
+    "account": "الحساب",
+    "cart": "السلة",
+    "menu": "القائمة"
+  },
+  "page": {
+    "title": "مرحباً بك في متجرنا متعدد اللغات",
+    "description": "استمتع بتجربة منصتنا باللغة التي تفضلها مع التبديل السلس",
+    "languageSwitcherExamples": "أمثلة على مبدل اللغة",
+    "dropdownVariant": "نوع القائمة المنسدلة",
+    "buttonVariant": "نوع الأزرار",
+    "minimalVariant": "النوع المبسط",
+    "multiLanguage": "دعم متعدد اللغات",
+    "multiLanguageDesc": "دعم للغات متعددة مع الأسماء الأصلية والأعلام",
+    "fastSwitching": "التبديل السريع",
+    "fastSwitchingDesc": "تبديل فوري للغة مع انتقالات سلسة",
+    "responsive": "تصميم متجاوب",
+    "responsiveDesc": "يعمل بشكل مثالي على جميع الأجهزة وأحجام الشاشات"
+  }
+}

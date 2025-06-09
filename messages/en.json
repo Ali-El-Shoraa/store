@@ -1,0 +1,34 @@
+{
+  "common": {
+    "searchLanguages": "Search languages...",
+    "noLanguageFound": "No language found.",
+    "selectLanguage": "Select Language"
+  },
+  "header": {
+    "welcome": "Welcome to our store",
+    "selectLanguage": "Language",
+    "storeName": "Your Store",
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "about": "About",
+    "search": "Search",
+    "account": "Account",
+    "cart": "Cart",
+    "menu": "Menu"
+  },
+  "page": {
+    "title": "Welcome to Our Multilingual Store",
+    "description": "Experience our platform in your preferred language with seamless switching",
+    "languageSwitcherExamples": "Language Switcher Examples",
+    "dropdownVariant": "Dropdown Variant",
+    "buttonVariant": "Button Variant",
+    "minimalVariant": "Minimal Variant",
+    "multiLanguage": "Multi-Language Support",
+    "multiLanguageDesc": "Support for multiple languages with native names and flags",
+    "fastSwitching": "Fast Switching",
+    "fastSwitchingDesc": "Instant language switching with smooth transitions",
+    "responsive": "Responsive Design",
+    "responsiveDesc": "Works perfectly on all devices and screen sizes"
+  }
+}
