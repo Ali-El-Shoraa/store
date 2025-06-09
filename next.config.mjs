@@ -1,6 +1,10 @@
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig = {
+  experimental: {
+    webVitalsAttribution: ["CLS", "LCP"],
+  },
+
   images: {
     remotePatterns: [
       {

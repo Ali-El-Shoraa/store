@@ -5,6 +5,7 @@ import { routing } from "@/i18n/routing";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
+import { WebVitals } from "@/components/WebVitals";
 // import { setRequestLocale } from "next-intl/server";
 
 // const geistSans = Geist({
@@ -31,7 +32,10 @@ export default async function LocaleLayout({ children, params }) {
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider locale={locale}>
-          <main className="">{children}</main>
+          <main className="">
+            <WebVitals />
+            {children}
+          </main>
         </NextIntlClientProvider>
       </body>
     </html>

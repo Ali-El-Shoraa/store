@@ -314,7 +314,7 @@
 //   { id: "sport", label: "Sport" },
 // ];
 
-// lib/productItem.ts
+// *********************************************************************************************
 export const allProducts = {
   groceries: Array.from({ length: 15 }, (_, i) => {
     const basePrice = +(5 + i * 0.5).toFixed(2);
