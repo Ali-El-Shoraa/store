@@ -3,14 +3,15 @@ import Image from "next/image";
 import SubNavbar from "./SubNavbar";
 import InputNavbar from "./InputNavbar";
 import LocaleSwitcher from "../locale-switcher";
+import { Link } from "@/i18n/navigation";
 
 export default function Navbar() {
   return (
     <header className="bg-navbar-color mb-7">
       <nav className="container h-[100px] flex items-center justify-between gap-5">
-        <div className="h-full flex items-center justify-center">
+        <Link href={`/`} className="h-full flex items-center justify-center">
           <Image src={`/image/logo.png`} alt="logo" width={155} height={39} />
-        </div>
+        </Link>
 
         <div className="flex items-center justify-end md:justify-between gap-7 flex-1">
           <div className="hidden md:block w-full">

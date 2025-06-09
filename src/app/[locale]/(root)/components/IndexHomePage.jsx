@@ -1,10 +1,12 @@
 import Image from "next/image";
-import Hero from "./sections/Hero";
-import ServicesSection from "./sections/ServicesSection";
-import TopBestSelling from "./sections/TopBestSelling";
-import TopFeatured from "./sections/TopFeatured";
-import BlogSection from "../blog/BlogSection";
-import Enhanced from "./sections/Enhanced";
+import Hero from "./Hero";
+import ServicesSection from "./ServicesSection";
+// import TopBestSelling from "./TopBestSelling";
+import TopFeatured from "./TopFeatured";
+import BlogSection from "./BlogSection";
+import Enhanced from "./Enhanced";
+
+import { allProducts, categories } from "@/lib/productItem";
 
 const images1 = [
   {
@@ -36,9 +38,22 @@ export default function IndexHomePage() {
 
       <Enhanced data={images1} />
 
-      <TopBestSelling />
+      {/* <TopBestSelling /> */}
 
-      <TopFeatured />
+      {/* Top Best Selling */}
+      <TopFeatured
+        titleSection="Top Best Selling"
+        subTitleSection="Product"
+        data={allProducts}
+        categories={categories}
+      />
+
+      <TopFeatured
+        titleSection="Top Featured"
+        subTitleSection="Product"
+        data={allProducts}
+        categories={categories}
+      />
 
       <section className="grid md:grid-cols-2 gap-6">
         <div className="text-center border">

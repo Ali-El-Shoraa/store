@@ -4,6 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-poppins: var(--font-poppins);
+  --font-cairo: var(--font-cairo);
   --color-navbar-color: #022335;
   --color-brand-secoundry: #ff9300;
   --color-brand-bg: #f5f5f5;

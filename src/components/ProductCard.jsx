@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { Badge, BarChart3, Eye, Heart, ShoppingCart, Star } from "lucide-react";
 import { Button } from "./ui/button";
+import { Link } from "@/i18n/navigation";
 
-export default function ProductCard({ product }) {
+function ProductCard({ product }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -16,14 +17,19 @@ export default function ProductCard({ product }) {
       <CardContent className="p-0 h-full flex flex-col">
         {/* Product Image */}
         <div className="relative aspect-square overflow-hidden">
-          <Image
-            src={isHovered ? product.secondImage : product.image}
-            alt={product.name}
-            className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-            width={1000}
-            height={1000}
-          />
-
+          <Link
+            href={`/product/${product?.name
+              ?.toLowerCase()
+              .replaceAll(" ", "-")}`}
+          >
+            <Image
+              src={isHovered ? product.secondImage : product.image}
+              alt={product.name}
+              className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
+              width={1000}
+              height={1000}
+            />
+          </Link>
           {/* Badges */}
           {/* Badges */}
           <div className="absolute left-2 top-2 flex flex-col gap-1">
@@ -60,48 +66,54 @@ export default function ProductCard({ product }) {
         </div>
 
         {/* Product Info */}
-        <div className="p-4 flex-grow flex flex-col">
-          <h3 className="mb-2 line-clamp-2 text-sm font-medium leading-tight">
-            {product.name}
-          </h3>
+        <Link
+          href={`/product/${product?.name?.toLowerCase().replaceAll(" ", "-")}`}
+        >
+          <div className="p-4 flex-grow flex flex-col">
+            <h3 className="mb-2 line-clamp-2 text-sm font-medium leading-tight">
+              {product.name}
+            </h3>
 
-          {/* Rating */}
-          <div className="mb-2 flex items-center gap-1">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`h-3 w-3 ${
-                    i < Math.floor(product.rating / 20)
-                      ? "fill-yellow-400 text-yellow-400"
-                      : "text-gray-300"
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="text-xs text-muted-foreground">
-              ({product.reviews})
-            </span>
-          </div>
-
-          {/* Seller */}
-          <p className="mb-2 text-xs text-muted-foreground">
-            Sold by: <span className="font-medium">{product.seller}</span>
-          </p>
-
-          {/* Price - moved to mt-auto to push it to the bottom */}
-          <div className="flex items-center gap-2 mt-auto">
-            <span className="text-lg font-bold text-primary">
-              ${product.price.toFixed(2)}
-            </span>
-            {product.originalPrice && (
-              <span className="text-sm text-muted-foreground line-through">
-                ${product.originalPrice.toFixed(2)}
+            {/* Rating */}
+            <div className="mb-2 flex items-center gap-1">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-3 w-3 ${
+                      i < Math.floor(product.rating / 20)
+                        ? "fill-yellow-400 text-yellow-400"
+                        : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-xs text-muted-foreground">
+                ({product.reviews})
               </span>
-            )}
+            </div>
+
+            {/* Seller */}
+            <p className="mb-2 text-xs text-muted-foreground">
+              Sold by: <span className="font-medium">{product.seller}</span>
+            </p>
+
+            {/* Price - moved to mt-auto to push it to the bottom */}
+            <div className="flex items-center gap-2 mt-auto">
+              <span className="text-lg font-bold text-primary">
+                ${product.price.toFixed(2)}
+              </span>
+              {product.originalPrice && (
+                <span className="text-sm text-muted-foreground line-through">
+                  ${product.originalPrice.toFixed(2)}
+                </span>
+              )}
+            </div>
           </div>
-        </div>
+        </Link>
       </CardContent>
     </Card>
   );
 }
+
+export default memo(ProductCard);

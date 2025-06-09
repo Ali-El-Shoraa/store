@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import {
@@ -10,32 +10,40 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { allProducts, categories } from "@/lib/productItem";
+// import { allProducts, categories } from "@/lib/productItem";
 import ProductCard from "@/components/ProductCard";
 import ProductCardSkeleton from "@/components/skeleton/ProductCardSkeleton";
 import HeaderSection from "@/components/HeaderSection";
 
-export default function TopFeatured() {
+export default function TopFeatured({
+  titleSection = "",
+  subTitleSection = "",
+  data = [],
+  categories = [],
+}) {
   const [activeCategory, setActiveCategory] = useState("groceries");
   const [isLoading, setIsLoading] = useState(false);
-  const [products, setProducts] = useState(allProducts.groceries);
+  const [products, setProducts] = useState(data.groceries);
 
   // Simulate loading when switching categories
-  const handleCategoryChange = async (category) => {
-    if (category === activeCategory) return;
+  const handleCategoryChange = useCallback(
+    async (category) => {
+      if (category === activeCategory) return;
 
-    setIsLoading(true);
-    setActiveCategory(category);
+      setIsLoading(true);
+      setActiveCategory(category);
 
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 800));
+      // Simulate API call delay
+      await new Promise((resolve) => setTimeout(resolve, 800));
 
-    setProducts(allProducts[category]);
-    setIsLoading(false);
-  };
+      setProducts(data[category]);
+      setIsLoading(false);
+    },
+    [activeCategory]
+  );
 
   useEffect(() => {
-    setProducts(allProducts[activeCategory]);
+    setProducts(data[activeCategory]);
   }, []);
 
   return (
@@ -45,7 +53,7 @@ export default function TopFeatured() {
       className=""
     >
       <div className="flex flex-col gap-4 md:flex-row rtl:md:flex-row-reverse md:items-center md:justify-between">
-        <HeaderSection title={`Top Featured`} subTitle={`Product`} />
+        <HeaderSection title={titleSection} subTitle={titleSection} />
 
         <TabsList className="grid w-full grid-cols-4 md:w-auto">
           {categories.map((category) => (

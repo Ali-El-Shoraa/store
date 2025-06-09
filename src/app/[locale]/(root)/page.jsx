@@ -1,7 +1,9 @@
-import IndexHomePage from "@/pages/hero/IndexHomePage";
+// import IndexHomePage from "@/pages/hero/IndexHomePage";
 import { generateSEOMetadata } from "@/utils/metadata-generator";
 // import { useTranslations } from "next-intl";
 import Image from "next/image";
+import IndexHomePage from "./components/IndexHomePage";
+// import IndexHomePage from "./components/IndexHomePage";
 
 // import BlogSection from "@/pages/blog/BlogSection";
 // import ServicesSection from "@/pages/hero/sections/ServicesSection";
