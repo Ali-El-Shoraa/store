@@ -44,7 +44,9 @@ export default async function LocaleLayout({ children, params }) {
     >
       <body
         // className="bg-brand-bg antialiased"
-        className={isArabic ? "font-cairo" : "font-poppins"}
+        className={`bg-brand-bg antialiased ${
+          isArabic ? "font-cairo" : "font-poppins"
+        }`}
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider locale={locale}>
