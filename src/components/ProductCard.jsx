@@ -4,10 +4,15 @@ import Image from "next/image";
 import { Badge, BarChart3, Eye, Heart, ShoppingCart, Star } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "@/i18n/navigation";
+import { addedData } from "@/actions/addToCard.action";
 
 function ProductCard({ product }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  // const addProductToAction = addedData.bind(null, "ali", "mmmmm");
+  const addProductToAction = () => {
+    addedData(product);
+  };
   return (
     <Card
       className="group relative overflow-hidden transition-all duration-300 hover:shadow-lg h-full py-0"
@@ -58,7 +63,11 @@ function ProductCard({ product }) {
 
           {/* Add to Cart Button */}
           <div className="absolute bottom-2 left-2 right-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <Button className="w-full" size="sm">
+            <Button
+              className="w-full bg-brand-secoundry hover:bg-white hover:text-brand-secoundry cursor-pointer"
+              size="sm"
+              onClick={addProductToAction}
+            >
               <ShoppingCart className="mr-2 h-4 w-4" />
               Add to Cart
             </Button>

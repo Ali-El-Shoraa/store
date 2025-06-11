@@ -12,6 +12,22 @@ const nextConfig = {
         hostname: "images.pexels.com",
         pathname: "/photos/**",
       },
+      {
+        protocol: "https",
+        hostname: "pagedone.io",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "ossimg.cmdgametransit.com",
+      },
+      {
+        protocol: "https",
+        hostname: "flowbite.s3.amazonaws.com",
+      },
     ],
   },
   // i18n: {

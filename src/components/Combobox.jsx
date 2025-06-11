@@ -95,7 +95,7 @@ export function Combobox({
         sideOffset={4}
       >
         <Command>
-          <CommandInput placeholder="Search..." className="h-9" />
+          <CommandInput placeholder={placeholder} className="h-9" />
           <CommandList>
             <CommandEmpty>No option found.</CommandEmpty>
             <CommandGroup>

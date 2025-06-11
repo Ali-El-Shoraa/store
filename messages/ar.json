@@ -30,5 +30,46 @@
     "fastSwitchingDesc": "تبديل فوري للغة مع انتقالات سلسة",
     "responsive": "تصميم متجاوب",
     "responsiveDesc": "يعمل بشكل مثالي على جميع الأجهزة وأحجام الشاشات"
+  },
+
+  "ImprovedSearchNavbar": {
+    "allCategories": "جميع الفئات",
+    "searchPlaceholder": "ابحث عن منتجات، علامات تجارية أو كلمات مفتاحية...",
+    "searchButton": "بحث",
+    "categories": {
+      "nextjs": "Next.js",
+      "sveltekit": "SvelteKit",
+      "nuxtjs": "Nuxt.js",
+      "remix": "Remix",
+      "astro": "Astro",
+      "react": "React",
+      "vue": "Vue.js",
+      "angular": "Angular"
+    }
+  },
+
+  "ServicesSection": {
+    "services": {
+      "freeDelivery": {
+        "title": "توصيل مجاني",
+        "desc": "لجميع الطلبات فوق 120 دولار"
+      },
+      "safePayment": {
+        "title": "دفع آمن",
+        "desc": "دفع آمن بنسبة 100%"
+      },
+      "shopConfidence": {
+        "title": "تسوق بثقة",
+        "desc": "إذا كانت هناك مشاكل في البضائع"
+      },
+      "helpCenter": {
+        "title": "مركز المساعدة 24/7",
+        "desc": "دعم مخصص على مدار الساعة"
+      },
+      "friendlyServices": {
+        "title": "خدمات ودية",
+        "desc": "ضمان رضا لمدة 30 يومًا"
+      }
+    }
   }
 }

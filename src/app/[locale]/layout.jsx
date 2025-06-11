@@ -1,58 +1,47 @@
 import { NextIntlClientProvider, hasLocale, useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-
-// import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// import Navbar from "@/components/navbar/Navbar";
 import { WebVitals } from "@/components/WebVitals";
-// import { headers } from "next/headers";
 import { cairo, poppins } from "./font";
-// import { setRequestLocale } from "next-intl/server";
+import LoaderProgressBar from "@/components/LoaderProgressBar";
+import { Suspense } from "react";
+import Loading from "./loading";
+import ButtonToTop from "@/components/ButtonToTop";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-
-// import { poppins, cairo } from "./fonts";
+// async function delay(ms) {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
 
 export default async function LocaleLayout({ children, params }) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-  // setRequestLocale("ar");
 
-  // const headersList = await headers();
-  // const acceptLanguage = headersList.get("accept-language");
-
-  // const locale = useLocale()
   const isArabic = locale === "ar" || false;
-  console.log("acceptLanguage", locale);
+
+  // await delay(5000);
+  // if (true) throw new Error("eeeeeeeeeeeeeeeeeeeeeeeee");
   return (
     <html
-      // dir={locale === "ar" ? "rtl" : "ltr"} lang={locale}
       lang={isArabic ? "ar" : "en"}
       dir={isArabic ? "rtl" : "ltr"}
       className={`${isArabic ? cairo.variable : poppins.variable}`}
     >
       <body
-        // className="bg-brand-bg antialiased"
         className={`bg-brand-bg antialiased ${
           isArabic ? "font-cairo" : "font-poppins"
         }`}
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider locale={locale}>
           <main className="">
+            <LoaderProgressBar />
             <WebVitals />
-            {children}
+            <Suspense fallback={<Loading />}>
+              {children}
+              <ButtonToTop />
+            </Suspense>
           </main>
         </NextIntlClientProvider>
       </body>

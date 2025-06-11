@@ -59,7 +59,7 @@ export default function Enhanced({ data = [] }) {
               absolute top-3 right-3
               bg-white/90 backdrop-blur-sm rounded-full p-2
               transform transition-all duration-300
-              group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white
+              group-hover:scale-110 group-hover:bg-brand-secoundry group-hover:text-white
             "
             >
               <div className="w-2 h-2 bg-current rounded-full animate-pulse" />
@@ -71,7 +71,7 @@ export default function Enhanced({ data = [] }) {
             <h3
               className="
               font-semibold text-lg text-gray-900
-              group-hover:text-blue-600 transition-colors duration-300
+              group-hover:text-brand-secoundry transition-colors duration-300
             "
             >
               {image.title}
@@ -82,7 +82,7 @@ export default function Enhanced({ data = [] }) {
           {/* Bottom border animation */}
           <div
             className="
-            absolute bottom-0 left-0 h-1 bg-blue-500
+            absolute bottom-0 left-0 h-1 bg-brand-secoundry
             w-0 group-hover:w-full transition-all duration-500 ease-out
           "
           />

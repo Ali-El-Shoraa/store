@@ -90,20 +90,20 @@ export default function ResponsiveNavbar() {
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center gap-6 text-sm font-semibold uppercase">
-        <Link href="/" className="hover:text-primary transition-colors">
+      <div className="hidden lg:flex items-center gap-6 text-sm font-semibold uppercase">
+        <Link href="/" className="hover:text-brand-secoundry transition-colors">
           Tablets & iPad
         </Link>
-        <Link href="/" className="hover:text-primary transition-colors">
+        <Link href="/" className="hover:text-brand-secoundry transition-colors">
           Computer
         </Link>
-        <Link href="/" className="hover:text-primary transition-colors">
+        <Link href="/" className="hover:text-brand-secoundry transition-colors">
           Sport
         </Link>
 
         <HoverCard openDelay={0} closeDelay={200}>
           <HoverCardTrigger>
-            <h3 className="flex items-center gap-1 cursor-pointer hover:text-primary transition-colors">
+            <h3 className="flex items-center gap-1 cursor-pointer hover:text-brand-secoundry transition-colors">
               Categories <ChevronDown className="h-4 w-4" />
             </h3>
           </HoverCardTrigger>
@@ -134,26 +134,31 @@ export default function ResponsiveNavbar() {
           </HoverCardContent>
         </HoverCard>
 
-        <Link href="/" className="hover:text-primary transition-colors">
+        <Link href="/" className="hover:text-brand-secoundry transition-colors">
           Blog
         </Link>
-        <Link href="/" className="hover:text-primary transition-colors">
+        <Link href="/" className="hover:text-brand-secoundry transition-colors">
           About Us
         </Link>
-        <Link href="/" className="hover:text-primary transition-colors">
+        <Link href="/" className="hover:text-brand-secoundry transition-colors">
           Contact
         </Link>
-        <Link href="/" className="hover:text-primary transition-colors">
+        <Link href="/" className="hover:text-brand-secoundry transition-colors">
           Find a store
         </Link>
       </div>
 
       {/* Mobile Navigation */}
-      <div className="md:hidden">
+      <div className="lg:hidden me-7">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <Menu className="h-6 w-6" />
+            <Button
+              variant="ghost"
+              size="icon"
+              // type="button"
+              className="hover:bg-transparent hover:text-brand-secoundry cursor-pointer"
+            >
+              <Menu className="size-7" />
               <span className="sr-only">Open menu</span>
             </Button>
           </SheetTrigger>

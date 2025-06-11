@@ -53,16 +53,16 @@ export default function TopFeatured({
       className=""
     >
       <div className="flex flex-col gap-4 md:flex-row rtl:md:flex-row-reverse md:items-center md:justify-between">
-        <HeaderSection title={titleSection} subTitle={titleSection} />
+        <HeaderSection title={titleSection} subTitle={subTitleSection} />
 
-        <TabsList className="grid w-full grid-cols-4 md:w-auto">
+        <TabsList className="grid w-full grid-cols-4 md:w-auto gap-2">
           {categories.map((category) => (
             <TabsTrigger
-              key={category.id}
-              value={category.id}
-              className="text-xs md:text-sm"
+              key={category?.id}
+              value={category?.id}
+              className="text-xs md:text-sm data-[state=active]:text-white data-[state=active]:bg-brand-secoundry border-brand-secoundry"
             >
-              {category.label}
+              {category?.label}
             </TabsTrigger>
           ))}
         </TabsList>

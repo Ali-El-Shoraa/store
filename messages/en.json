@@ -30,5 +30,46 @@
     "fastSwitchingDesc": "Instant language switching with smooth transitions",
     "responsive": "Responsive Design",
     "responsiveDesc": "Works perfectly on all devices and screen sizes"
+  },
+
+  "ImprovedSearchNavbar": {
+    "allCategories": "All Categories",
+    "searchPlaceholder": "Search products, brands, or keywords...",
+    "searchButton": "Search",
+    "categories": {
+      "nextjs": "Next.js",
+      "sveltekit": "SvelteKit",
+      "nuxtjs": "Nuxt.js",
+      "remix": "Remix",
+      "astro": "Astro",
+      "react": "React",
+      "vue": "Vue.js",
+      "angular": "Angular"
+    }
+  },
+
+  "ServicesSection": {
+    "services": {
+      "freeDelivery": {
+        "title": "Free Delivery",
+        "desc": "For all orders over $120"
+      },
+      "safePayment": {
+        "title": "Safe Payment",
+        "desc": "100% secure payment"
+      },
+      "shopConfidence": {
+        "title": "Shop With Confidence",
+        "desc": "If goods have problems"
+      },
+      "helpCenter": {
+        "title": "24/7 Help Center",
+        "desc": "Dedicated 24/7 support"
+      },
+      "friendlyServices": {
+        "title": "Friendly Services",
+        "desc": "30 day satisfaction guarantee"
+      }
+    }
   }
 }

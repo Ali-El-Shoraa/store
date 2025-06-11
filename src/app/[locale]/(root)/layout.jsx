@@ -1,3 +1,4 @@
+import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 
 export default async function LocaleLayout({ children }) {
@@ -5,6 +6,7 @@ export default async function LocaleLayout({ children }) {
     <>
       <Navbar />
       {children}
+      <Footer />
     </>
   );
 }
