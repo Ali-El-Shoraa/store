@@ -1,7 +1,10 @@
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
-export default function FooterAbout() {
+export default async function FooterAbout() {
+  const t = await getTranslations("Footer.about");
+
   return (
     <div className="space-y-6">
       <Link href="/">
@@ -22,24 +25,24 @@ export default function FooterAbout() {
           height={40}
         />
         <div>
-          <p className="text-sm text-gray-400">Hotline Free 24/24:</p>
+          <p className="text-sm text-gray-400">{t("hotline")}</p>
           <p className="font-medium">(+100) 123 456 7890</p>
         </div>
       </div>
 
       <div className="flex gap-2">
-        <span className="text-sm text-gray-400">Add:</span>
-        <p>Walls Street 68, Mahattan, New York, USA</p>
+        <span className="text-sm text-gray-400">{t("addressLabel")}</span>
+        <p>{t("address")}</p>
       </div>
 
       <div className="flex gap-2">
-        <span className="text-sm text-gray-400">Email:</span>
-        <p>ali.m.elshoraa@gmail.com</p>
+        <span className="text-sm text-gray-400">{t("emailLabel")}</span>
+        <p>{t("email")}</p>
       </div>
 
       <div className="flex gap-2">
-        <span className="text-sm text-gray-400">Phone:</span>
-        <p>(+100) 123 456 7890 - (+100) 123 456 7891</p>
+        <span className="text-sm text-gray-400">{t("phoneLabel")}</span>
+        <p>{t("phone")}</p>
       </div>
     </div>
   );

@@ -1,27 +1,30 @@
 import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 
-export default function InformationCompany() {
+export default async function InformationCompany() {
+  const t = await getTranslations("Footer.information");
+
   return (
     <div>
-      <h4 className="text-lg font-semibold mb-4">Information Company</h4>
+      <h4 className="text-lg font-semibold mb-4">{t.raw("title")}</h4>
       <div className="space-y-2">
         <Link href="#" className="block text-gray-300 hover:text-white">
-          Testimonials
+          {t("links.testimonials")}
         </Link>
         <Link href="#" className="block text-gray-300 hover:text-white">
-          Contact Us
+          {t("links.contact")}
         </Link>
         <Link href="#" className="block text-gray-300 hover:text-white">
-          Location & Working Hours
+          {t("links.location")}
         </Link>
         <Link href="#" className="block text-gray-300 hover:text-white">
-          Our Guarantee
+          {t("links.guarantee")}
         </Link>
         <Link href="#" className="block text-gray-300 hover:text-white">
-          Track Your Order
+          {t("links.trackOrder")}
         </Link>
         <Link href="#" className="block text-gray-300 hover:text-white">
-          Help Page
+          {t("links.helpPage")}
         </Link>
       </div>
     </div>

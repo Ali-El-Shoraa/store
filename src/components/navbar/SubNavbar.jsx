@@ -1,3 +1,78 @@
+// "use client";
+// import { Link } from "@/i18n/navigation";
+// import { ChevronDown } from "lucide-react";
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
+// import { Button } from "@/components/ui/button";
+
+// const categories = [
+//   {
+//     name: "الإلكترونيات",
+//     href: "/categories/electronics",
+//     subcategories: [
+//       { name: "الهواتف الذكية", href: "/categories/smartphones" },
+//       { name: "أجهزة الكمبيوتر", href: "/categories/computers" },
+//       { name: "الأجهزة المنزلية", href: "/categories/appliances" },
+//     ],
+//   },
+//   {
+//     name: "الأزياء",
+//     href: "/categories/fashion",
+//     subcategories: [
+//       { name: "ملابس رجالية", href: "/categories/mens-clothing" },
+//       { name: "ملابس نسائية", href: "/categories/womens-clothing" },
+//       { name: "الأحذية", href: "/categories/shoes" },
+//     ],
+//   },
+//   {
+//     name: "المنزل والحديقة",
+//     href: "/categories/home-garden",
+//     subcategories: [
+//       { name: "أثاث", href: "/categories/furniture" },
+//       { name: "ديكور", href: "/categories/decor" },
+//       { name: "أدوات الحديقة", href: "/categories/garden-tools" },
+//     ],
+//   },
+// ];
+
+// export default function SubNavbar() {
+//   return (
+//     <div className="flex items-center gap-6">
+//       {categories.map((category) => (
+//         <DropdownMenu key={category.name}>
+//           <DropdownMenuTrigger asChild>
+//             <Button
+//               variant="ghost"
+//               className="text-white hover:text-brand-secondary hover:bg-white/10 transition-all duration-200 flex items-center gap-1"
+//             >
+//               {category.name}
+//               <ChevronDown className="h-4 w-4" />
+//             </Button>
+//           </DropdownMenuTrigger>
+//           <DropdownMenuContent className="animate-in slide-in-from-top-2 duration-200">
+//             <DropdownMenuItem asChild>
+//               <Link href={category.href} className="cursor-pointer">
+//                 عرض الكل
+//               </Link>
+//             </DropdownMenuItem>
+//             {category.subcategories.map((sub) => (
+//               <DropdownMenuItem key={sub.name} asChild>
+//                 <Link href={sub.href} className="cursor-pointer">
+//                   {sub.name}
+//                 </Link>
+//               </DropdownMenuItem>
+//             ))}
+//           </DropdownMenuContent>
+//         </DropdownMenu>
+//       ))}
+//     </div>
+//   );
+// }
+
 "use client";
 
 import { useState } from "react";

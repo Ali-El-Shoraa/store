@@ -1,45 +1,48 @@
 import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 
-export default function QuickMenu() {
+export default async function QuickMenu() {
+  const t = await getTranslations("Footer.quickMenu");
+
   return (
     <div>
-      <h4 className="text-lg font-semibold mb-4">QUICK MENU</h4>
+      <h4 className="text-lg font-semibold mb-4">{t("title")}</h4>
       <div className="grid grid-cols-2 gap-2">
         <Link href="#" className="text-gray-300 hover:text-white">
-          TV & Video
+          {t("links.tv")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Computers & Laptops
+          {t("links.computers")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Cameras & Photography
+          {t("links.cameras")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Smart Phones & Tablets
+          {t("links.phones")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Video Games & Consoles
+          {t("links.games")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Home Audio & Theater
+          {t("links.audio")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Camera, Photo & Video
+          {t("links.photo")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Cell Phones & Accessories
+          {t("links.accessories")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Headphones
+          {t("links.headphones")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Video Games
+          {t("links.videoGames")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Clothing & Bags
+          {t("links.clothing")}
         </Link>
         <Link href="#" className="text-gray-300 hover:text-white">
-          Sneaker for Men's
+          {t("links.sneakers")}
         </Link>
       </div>
     </div>

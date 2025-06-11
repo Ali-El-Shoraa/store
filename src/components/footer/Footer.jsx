@@ -4,7 +4,7 @@ import InformationCompany from "./InformationCompany";
 import FooterAbout from "./FooterAbout";
 import FooterSubscribe from "./FooterSubscribe";
 
-export default function Footer() {
+export default async function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-100">
       <div className="container py-12 flex gap-10 max-xl:grid grid-cols-2 max-md:grid-cols-1">

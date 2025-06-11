@@ -2,7 +2,7 @@ export function generateSEOMetadata(data) {
   const {
     title,
     description,
-    image = "/og-default.jpg",
+    image = "/image/logo.png",
     url,
     type = "website",
     publishedTime,
@@ -44,12 +44,3 @@ export function generateSEOMetadata(data) {
       : undefined,
   };
 }
-
-// Usage example:
-// export const metadata = generateSEOMetadata({
-//   title: 'My Page Title',
-//   description: 'My page description',
-//   image: '/my-page-image.jpg',
-//   url: '/my-page',
-//   tags: ['tag1', 'tag2']
-// })

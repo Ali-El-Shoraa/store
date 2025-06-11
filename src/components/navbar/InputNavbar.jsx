@@ -73,6 +73,58 @@ export default function ImprovedSearchNavbar() {
     </div>
   );
 }
+
+// "use client";
+
+// import { useState } from "react";
+// import { Search, X } from "lucide-react";
+// import { Input } from "@/components/ui/input";
+// import { Button } from "@/components/ui/button";
+
+// export default function InputNavbar() {
+//   const [searchQuery, setSearchQuery] = useState("");
+
+//   const handleSearch = (e) => {
+//     e.preventDefault();
+//     if (searchQuery.trim()) {
+//       // Handle search logic here
+//       console.log("Searching for:", searchQuery);
+//     }
+//   };
+
+//   const clearSearch = () => {
+//     setSearchQuery("");
+//   };
+
+//   return (
+//     <form onSubmit={handleSearch} className="relative w-full max-w-md">
+//       <div className="relative">
+//         <Input
+//           type="text"
+//           placeholder="ابحث عن المنتجات..."
+//           value={searchQuery}
+//           onChange={(e) => setSearchQuery(e.target.value)}
+//           className="pl-10 pr-10 h-10 bg-white/90 backdrop-blur-sm border-white/20 focus:bg-white transition-all duration-200"
+//         />
+
+//         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+
+//         {searchQuery && (
+//           <Button
+//             type="button"
+//             variant="ghost"
+//             size="icon"
+//             className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 hover:bg-gray-100"
+//             onClick={clearSearch}
+//           >
+//             <X className="h-3 w-3" />
+//           </Button>
+//         )}
+//       </div>
+//     </form>
+//   );
+// }
+
 // "use client";
 
 // import { useState } from "react";
