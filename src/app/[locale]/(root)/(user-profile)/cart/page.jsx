@@ -207,6 +207,7 @@ import {
 import { Minus, Plus, X } from "lucide-react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import IncDecProduct from "@/components/IncDecProduct";
 
 export default function CartPage() {
   const cartItems = [
@@ -220,7 +221,7 @@ export default function CartPage() {
       status: "Ready for Delivery",
       statusColor: "bg-emerald-50 text-emerald-600",
       deliveryDate: "23rd March 2025",
-      image: "https://pagedone.io/asset/uploads/1701167607.png",
+      image: "/image/product/photo3.webp",
     },
     {
       id: 2,
@@ -232,7 +233,7 @@ export default function CartPage() {
       status: "Dispatched",
       statusColor: "bg-indigo-50 text-indigo-600",
       deliveryDate: "23rd March 2025",
-      image: "https://pagedone.io/asset/uploads/1701167621.png",
+      image: "/image/product/photo2.webp",
     },
   ];
 
@@ -311,7 +312,7 @@ export default function CartPage() {
                         </p> */}
                         <div className="flex items-center gap-2">
                           <span>Quantity:</span>
-                          <div className="flex items-center border rounded-md">
+                          {/* <div className="flex items-center border rounded-md">
                             <Button
                               variant="ghost"
                               size="sm"
@@ -329,7 +330,9 @@ export default function CartPage() {
                             >
                               <Plus className="h-4 w-4" />
                             </Button>
-                          </div>
+                          </div> */}
+
+                          <IncDecProduct />
                         </div>
                       </div>
                       {/* <div className="mt-2">

@@ -68,7 +68,7 @@ export default function CartPage() {
     <div className="grid md:grid-cols-3 gap-8">
       <div className="md:col-span-2 space-y-6">
         <div className="space-y-6">
-          {items.map((item, index) => (
+          {items?.map((item, index) => (
             <div
               key={item.id}
               id={`cart-item-${item.id}`}

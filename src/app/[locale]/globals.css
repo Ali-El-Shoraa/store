@@ -9,7 +9,8 @@
   /* --color-navbar-color: #022335; */
   --color-brand-color: #101828;
   --color-brand-secoundry: #ff9300;
-  --color-brand-bg: #f5f5f5;
+  --color-brand-bg: #f9fafb;
+  /* --color-brand-bg: #f5f5f5; */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -55,55 +56,45 @@
   width: 100%;
   padding-inline: 15px;
   margin-inline: auto;
-}
 
-/* xxs (مثل 480px) */
-@media (min-width: 30rem /* 480px */) {
-  .container {
+  /* xxs (مثل 480px) */
+  @media (min-width: 30rem /* 480px */) {
     max-width: 30rem /* 480px */;
   }
-}
 
-/* sm */
-@media (min-width: 40rem /* 640px */) {
-  .container {
+  /* sm */
+  @media (min-width: 40rem /* 640px */) {
     max-width: 40rem /* 640px */;
   }
-}
 
-/* md */
-@media (min-width: 48rem /* 768px */) {
-  .container {
+  /* md */
+  @media (min-width: 48rem /* 768px */) {
     max-width: 48rem /* 768px */;
   }
-}
 
-/* lg */
-@media (min-width: 64rem /* 1024px */) {
-  .container {
+  /* lg */
+  @media (min-width: 64rem /* 1024px */) {
     max-width: 64rem /* 1024px */;
   }
-}
 
-/* xl */
-@media (min-width: 80rem /* 1280px */) {
-  .container {
+  /* xl */
+  @media (min-width: 80rem /* 1280px */) {
     max-width: 80rem /* 1280px */;
   }
-}
 
-/* 2xl */
-@media (min-width: 96rem /* 1536px */) {
-  .container {
+  /* 2xl */
+  @media (min-width: 96rem /* 1536px */) {
     max-width: 96rem /* 1536px */;
   }
-}
 
-/* 8xl – الحد الأقصى */
-@media (min-width: 112.5rem /* 1800px */) {
-  .container {
+  /* 8xl – الحد الأقصى */
+  @media (min-width: 112.5rem /* 1800px */) {
     max-width: 112.5rem /* 1800px */;
   }
+}
+
+.rotate-y-180 {
+  transform: rotate3d(0, 1, 0, 180deg);
 }
 
 :root {
@@ -141,7 +132,7 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
+/* .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -173,7 +164,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-}
+} */
 
 @layer base {
   * {

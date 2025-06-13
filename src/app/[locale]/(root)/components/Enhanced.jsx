@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Enhanced({ data = [] }) {
   return (
-    <section className="grid md:grid-cols-3 gap-6 p-6">
+    <section className="grid md:grid-cols-3 gap-6">
       {data.map((image, index) => (
         <article
           key={index}

@@ -4,10 +4,11 @@ import { routing } from "@/i18n/routing";
 import "./globals.css";
 import { WebVitals } from "@/components/WebVitals";
 import { cairo, poppins } from "./font";
-import LoaderProgressBar from "@/components/LoaderProgressBar";
+// import LoaderProgressBar from "@/components/LoaderProgressBar";
 import { Suspense } from "react";
 import Loading from "./loading";
 import ButtonToTop from "@/components/ButtonToTop";
+import LoadingBarComponents from "@/components/LoaderProgressBar";
 
 // async function delay(ms) {
 //   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -36,7 +37,7 @@ export default async function LocaleLayout({ children, params }) {
       >
         <NextIntlClientProvider locale={locale}>
           <main className="">
-            <LoaderProgressBar />
+            <LoadingBarComponents />
             <WebVitals />
             <Suspense fallback={<Loading />}>
               {children}

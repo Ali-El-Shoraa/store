@@ -1,18 +1,28 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
-import { Badge, BarChart3, Eye, Heart, ShoppingCart, Star } from "lucide-react";
+import { Heart, ShoppingCart, Star } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "@/i18n/navigation";
 import { addedData } from "@/actions/addToCard.action";
+// import { cn } from "@/lib/utils";
+import LikedProduct from "./LikedProduct";
+import { formatCurrency } from "@/utils/formatCurrency";
+import RatingComponent from "./RatingComponent";
 
 function ProductCard({ product }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  // const addProductToAction = addedData.bind(null, "ali", "mmmmm");
-  const addProductToAction = () => {
+  const addProductToAction = useCallback(() => {
     addedData(product);
-  };
+  }, []);
+
+  const [liked, setLiked] = useState(product?.liked ?? false);
+
+  const handleClick = useCallback(() => {
+    setLiked(!liked);
+  }, [liked]);
+
   return (
     <Card
       className="group relative overflow-hidden transition-all duration-300 hover:shadow-lg h-full py-0"
@@ -20,48 +30,42 @@ function ProductCard({ product }) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <CardContent className="p-0 h-full flex flex-col">
-        {/* Product Image */}
         <div className="relative aspect-square overflow-hidden">
           <Link
-            href={`/product/${product?.name
+            href={`/product/${product?.title
               ?.toLowerCase()
               .replaceAll(" ", "-")}`}
           >
             <Image
-              src={isHovered ? product.secondImage : product.image}
-              alt={product.name}
+              src={
+                isHovered
+                  ? product?.secondImage
+                  : product?.image || "/image/product/photo1.webp"
+              }
+              alt={product?.title}
               className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
               width={1000}
               height={1000}
             />
           </Link>
-          {/* Badges */}
-          {/* Badges */}
+
           <div className="absolute left-2 top-2 flex flex-col gap-1">
-            {product.badge === "sale" && product.discount && (
-              <Badge variant="destructive" className="bg-red-500 text-white">
-                -{product.discount}%
-              </Badge>
+            {product?.badge === "sale" && product?.discount && (
+              <div className="absolute left-[-40px] top-4 w-[150px] bg-red-600 text-white text-xs font-bold text-center transform rotate-[-45deg] shadow-md z-10 py-1">
+                SALE -{product?.discount}%
+              </div>
             )}
-            {product.badge === "new" && (
-              <Badge className="bg-green-500 text-white">New</Badge>
+            {product?.badge === "new" && (
+              <div className="absolute left-[-40px] top-4 w-[150px] bg-green-600 text-white text-xs font-bold text-center transform rotate-[-45deg] shadow-md z-10 py-1">
+                NEW
+              </div>
             )}
           </div>
 
-          {/* Action Buttons */}
-          <div className="absolute right-2 top-2 flex flex-col gap-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <Button size="icon" variant="secondary" className="h-8 w-8">
-              <Heart className="h-4 w-4" />
-            </Button>
-            <Button size="icon" variant="secondary" className="h-8 w-8">
-              <Eye className="h-4 w-4" />
-            </Button>
-            <Button size="icon" variant="secondary" className="h-8 w-8">
-              <BarChart3 className="h-4 w-4" />
-            </Button>
+          <div className="absolute right-2 top-2 z-20">
+            <LikedProduct handleClick={handleClick} liked={liked} />
           </div>
 
-          {/* Add to Cart Button */}
           <div className="absolute bottom-2 left-2 right-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <Button
               className="w-full bg-brand-secoundry hover:bg-white hover:text-brand-secoundry cursor-pointer"
@@ -74,49 +78,43 @@ function ProductCard({ product }) {
           </div>
         </div>
 
-        {/* Product Info */}
         <Link
           href={`/product/${product?.name?.toLowerCase().replaceAll(" ", "-")}`}
         >
-          <div className="p-4 flex-grow flex flex-col">
-            <h3 className="mb-2 line-clamp-2 text-sm font-medium leading-tight">
-              {product.name}
+          {/* product details */}
+          <div className="p-4">
+            <h3 className="text-gray-800 font-medium text-base line-clamp-1">
+              {product?.title}
             </h3>
-
-            {/* Rating */}
-            <div className="mb-2 flex items-center gap-1">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`h-3 w-3 ${
-                      i < Math.floor(product.rating / 20)
-                        ? "fill-yellow-400 text-yellow-400"
-                        : "text-gray-300"
-                    }`}
-                  />
-                ))}
-              </div>
-              <span className="text-xs text-muted-foreground">
-                ({product.reviews})
-              </span>
-            </div>
-
-            {/* Seller */}
-            <p className="mb-2 text-xs text-muted-foreground">
-              Sold by: <span className="font-medium">{product.seller}</span>
+            <p className="uppercase text-green-600 text-xs font-medium mt-1">
+              {product?.brand}
             </p>
 
-            {/* Price - moved to mt-auto to push it to the bottom */}
-            <div className="flex items-center gap-2 mt-auto">
-              <span className="text-lg font-bold text-primary">
-                ${product.price.toFixed(2)}
-              </span>
-              {product.originalPrice && (
-                <span className="text-sm text-muted-foreground line-through">
-                  ${product.originalPrice.toFixed(2)}
+            {/* التقييمات */}
+            <RatingComponent rating={product?.rating} />
+
+            {/* السعر */}
+            <div className="flex items-baseline justify-between mt-3">
+              <div className="flex flex-col items-baseline gap-2">
+                <span className="text-blue-600 text-lg font-semibold">
+                  {product?.discountPrice
+                    ? formatCurrency(product?.discountPrice)
+                    : formatCurrency(product?.price)}
                 </span>
-              )}
+                {product?.discountPrice && (
+                  <span className="text-gray-400 text-sm line-through">
+                    {formatCurrency(product?.price)}
+                  </span>
+                )}
+              </div>
+
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full w-10 h-10"
+              >
+                <ShoppingCart className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         </Link>

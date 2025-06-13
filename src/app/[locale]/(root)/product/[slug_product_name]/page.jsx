@@ -4,6 +4,7 @@ import { allProducts, categories } from "@/lib/productItem";
 import TopFeatured from "../../components/TopFeatured";
 import ProductPage from "./components/ProductPage";
 import { generateSEOMetadata } from "@/utils/metadata-generator";
+import Review from "./components/ReviewProductDetails";
 
 export async function generateMetadata({ params }) {
   const { slug_product_name } = await params;
@@ -23,6 +24,7 @@ export default function ProductDetailsPage() {
       <div className="container space-y-14">
         <ProductPage />
 
+        <Review />
         <TopFeatured
           titleSection="Similar"
           subTitleSection="Product"

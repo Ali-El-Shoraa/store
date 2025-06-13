@@ -3,8 +3,14 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Star, ShoppingCart, Heart } from "lucide-react";
 import Image from "next/image";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+// import { Input } from "@/components/ui/input";
+// import { Badge } from "@/components/ui/badge";
+import IncDecProduct from "@/components/IncDecProduct";
+import RatingComponent from "@/components/RatingComponent";
+import { formatCurrency } from "@/utils/formatCurrency";
+import ShareButtons from "@/components/ShareButtons";
+import Review from "./ReviewProductDetails";
+import { Tabs } from "@/components/ui/tabs";
 
 export default function ProductPage() {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -18,6 +24,8 @@ export default function ProductPage() {
     originalPrice: 399.99,
     rating: 4.5,
     reviews: 120,
+    discount: 17,
+
     description:
       "Experience premium sound quality and industry-leading noise cancellation with these wireless headphones. Perfect for music lovers and frequent travelers.",
     features: [
@@ -32,45 +40,42 @@ export default function ProductPage() {
       { name: "Blue", value: "blue-500" },
     ],
     images: [
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1080",
-      "https://images.unsplash.com/photo-1505751171710-1f6d0ace5a85?w=1080",
-      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=1080",
-      "https://images.unsplash.com/photo-1496957961599-e35b69ef5d7c?w=1080",
+      "/image/product/photo1.webp",
+      "/image/product/photo2.webp",
+      "/image/product/photo3.webp",
+      "/image/product/photo4.webp",
     ],
   };
 
-  const handleQuantityChange = (e) => {
-    const value = parseInt(e.target.value);
-    if (!isNaN(value) && value > 0) {
-      setQuantity(value);
-    }
-  };
+  // const handleQuantityChange = (e) => {
+  //   const value = parseInt(e.target.value);
+  //   if (!isNaN(value) && value > 0) {
+  //     setQuantity(value);
+  //   }
+  // };
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
       {/* Product Images Section */}
-      <div className="w-full lg:w-1/2 bg-white rounded-xl shadow-sm">
+      <div className="w-full lg:w-1/2 bg-white rounded-xl shadow-sm px-10 pt-10">
         {/* Main Image */}
         {/*  aspect-square */}
+
         <div className="relative w-full bg-white rounded-xl shadow-sm overflow-hidden mb-4">
           <Image
-            src={product.images[selectedImage]}
-            alt={product.name}
+            src={product?.images?.[selectedImage]}
+            alt={product?.name}
             width={1000}
             height={1000}
-            className="w-full h-full object-contain "
-            // className="object-contain object-cover"
+            className="w-full h-full object-cover max-h-[450px] shadow-sm"
             priority
           />
-          {/* Discount Badge */}
-          <Badge className="absolute top-4 left-4 bg-red-500 hover:bg-red-600">
-            {Math.round(
-              ((product.originalPrice - product.price) /
-                product.originalPrice) *
-                100
-            )}
-            % OFF
-          </Badge>
+
+          {product?.discount && (
+            <div className="absolute left-[-40px] top-4 w-[150px] bg-red-600 text-white text-xs font-bold text-center transform rotate-[-45deg] shadow-md z-10 py-1">
+              SALE -{product?.discount}%
+            </div>
+          )}
         </div>
 
         {/* Thumbnails */}
@@ -88,7 +93,6 @@ export default function ProductPage() {
               <Image
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
-                // fill
                 width={1000}
                 height={1000}
                 className="w-full h-full object-cover"
@@ -107,15 +111,19 @@ export default function ProductPage() {
           {/* Price Section */}
           <div className="mb-4">
             <span className="text-2xl font-bold text-primary mr-2">
-              ${product.price.toFixed(2)}
+              {formatCurrency(product?.price)}
             </span>
             <span className="text-gray-500 line-through">
-              ${product.originalPrice.toFixed(2)}
+              {formatCurrency(product?.originalPrice)}
             </span>
           </div>
 
           {/* Rating */}
-          <div className="flex items-center mb-4">
+          <RatingComponent
+            rating={product?.rating}
+            reviews={product?.reviews}
+          />
+          {/* <div className="flex items-center mb-4">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
@@ -129,33 +137,37 @@ export default function ProductPage() {
             <span className="ml-2 text-gray-600">
               {product.rating} ({product.reviews} reviews)
             </span>
-          </div>
+          </div> */}
 
           {/* Description */}
-          <p className="text-gray-700 mb-6">{product.description}</p>
+          <p className="text-gray-700 mb-6">{product?.description}</p>
 
+          <div className="">
+            <ShareButtons title={``} url={``} />
+          </div>
           {/* Color Selection */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Color:</h3>
             <div className="flex gap-3">
-              {product.colors.map((color) => (
+              {product?.colors?.map((color) => (
                 <button
-                  key={color.value}
-                  onClick={() => setSelectedColor(color.value)}
-                  className={`w-8 h-8 rounded-full bg-${color.value} ${
-                    selectedColor === color.value
+                  key={color?.value}
+                  onClick={() => setSelectedColor(color?.value)}
+                  className={`w-8 h-8 rounded-full bg-${color?.value} ${
+                    selectedColor === color?.value
                       ? "ring-2 ring-offset-2 ring-gray-400"
                       : ""
                   }`}
-                  aria-label={color.name}
+                  aria-label={color?.name}
                 />
               ))}
             </div>
           </div>
 
           {/* Quantity */}
-          <div className="mb-6">
-            <label
+          <div className="mb-6 w-fit">
+            <IncDecProduct />
+            {/* <label
               htmlFor="quantity"
               className="block text-sm font-medium mb-1"
             >
@@ -168,7 +180,7 @@ export default function ProductPage() {
               value={quantity}
               onChange={handleQuantityChange}
               className="w-20 text-center"
-            />
+            /> */}
           </div>
 
           {/* Action Buttons */}

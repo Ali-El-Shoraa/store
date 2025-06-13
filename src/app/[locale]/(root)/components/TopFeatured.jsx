@@ -23,7 +23,7 @@ export default function TopFeatured({
 }) {
   const [activeCategory, setActiveCategory] = useState("groceries");
   const [isLoading, setIsLoading] = useState(false);
-  const [products, setProducts] = useState(data.groceries);
+  const [products, setProducts] = useState(data?.groceries);
 
   // Simulate loading when switching categories
   const handleCategoryChange = useCallback(
@@ -36,14 +36,14 @@ export default function TopFeatured({
       // Simulate API call delay
       await new Promise((resolve) => setTimeout(resolve, 800));
 
-      setProducts(data[category]);
+      setProducts(data?.[category]);
       setIsLoading(false);
     },
     [activeCategory]
   );
 
   useEffect(() => {
-    setProducts(data[activeCategory]);
+    setProducts(data?.[activeCategory]);
   }, []);
 
   return (
@@ -69,7 +69,7 @@ export default function TopFeatured({
       </div>
 
       {categories.map((category) => (
-        <TabsContent key={category.id} value={category.id} className="mt-6">
+        <TabsContent key={category?.id} value={category?.id} className="mt-6">
           {/* Product Carousel */}
           {isLoading ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
@@ -87,8 +87,8 @@ export default function TopFeatured({
               <CarouselContent>
                 {products.map((product) => (
                   <CarouselItem
-                    key={product.id}
-                    className="basis-1/2  md:basis-1/2 lg:basis-1/4 xl:basis-1/6 "
+                    key={product?.id}
+                    className="basis-full  md:basis-1/2 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6 "
                   >
                     <div className="p-1 h-full">
                       <ProductCard product={product} />
