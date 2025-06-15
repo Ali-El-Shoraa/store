@@ -15,15 +15,11 @@ export default function Navbar() {
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
 
-    // تحديد إذا كان المستخدم قد قام بالscroll لأسفل أكثر من 150px
     setIsScrolled(currentScrollY > 150);
 
-    // إظهار/إخفاء النافبار بناءً على اتجاه السكرول
     if (currentScrollY > prevScrollY.current && currentScrollY > 150) {
-      // التمرير لأسفل - إخفاء النافبار
       setIsVisible(false);
     } else if (currentScrollY < prevScrollY.current || currentScrollY < 10) {
-      // التمرير لأعلى أو في أعلى الصفحة - إظهار النافبار
       setIsVisible(true);
     }
 
@@ -37,7 +33,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* النافبار الرئيسي */}
       <header className="bg-brand-color mb-7">
         <nav className="container h-[100px] flex items-center justify-between gap-5">
           <LogoNavbar />
@@ -65,10 +60,9 @@ export default function Navbar() {
         </nav>
       </header>
 
-      {/* النافبار الثابت عند السكرول (لشاشات الكبيرة فقط) */}
-      <div
+      <header
         className={`
-        fixed top-0 left-0 right-0 z-30 max-lg:hidden
+        bg-brand-color w-full fixed top-0 left-0 right-0 z-30 max-lg:hidden
         transition-all duration-300 ease-in-out
         ${
           isScrolled
@@ -82,17 +76,17 @@ export default function Navbar() {
         }
       `}
       >
-        <header className="bg-brand-color w-full">
-          <nav className="container text-white h-16 flex items-center justify-between gap-5">
-            <LogoNavbar compact />
-            <DesktopNavigation />
-            <div className="flex items-center gap-4">
-              <ActionsHeader compact />
-              <LocaleSwitcher />
-            </div>
-          </nav>
-        </header>
-      </div>
+        {/* <header className="bg-brand-color w-full"> */}
+        <nav className="container text-white h-16 flex items-center justify-between gap-5">
+          <LogoNavbar compact />
+          <DesktopNavigation />
+          <div className="flex items-center gap-4">
+            <ActionsHeader compact />
+            <LocaleSwitcher />
+          </div>
+        </nav>
+        {/* </header> */}
+      </header>
     </>
   );
 }
