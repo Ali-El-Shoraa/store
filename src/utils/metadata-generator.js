@@ -15,6 +15,7 @@ export function generateSEOMetadata(data) {
     description,
     keywords: tags,
     authors: author ? [{ name: author }] : undefined,
+    image: image,
     openGraph: {
       title,
       description,
