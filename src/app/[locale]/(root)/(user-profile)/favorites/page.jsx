@@ -85,11 +85,11 @@ export default function FavoritesPage() {
         <CardHeader>
           <CardTitle className="text-2xl font-bold flex items-center gap-2">
             <Heart className="w-6 h-6 text-red-500 fill-red-500" />
-            My Favorites ({favorites.length})
+            My Favorites ({favorites?.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {favorites.length === 0 ? (
+          {favorites?.length === 0 ? (
             <div className="text-center py-12">
               <Heart className="mx-auto w-12 h-12 text-gray-300" />
               <h3 className="mt-4 text-lg font-medium text-gray-900">
@@ -102,7 +102,7 @@ export default function FavoritesPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {favorites.map((product, index) => (
+              {favorites?.map((product, index) => (
                 <ProductCard product={product} key={index} />
               ))}
             </div>

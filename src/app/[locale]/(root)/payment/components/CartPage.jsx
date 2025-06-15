@@ -27,8 +27,8 @@ export default function CartPage() {
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity < 1) return;
     setItems(
-      items.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
+      items?.map((item) =>
+        item?.id === id ? { ...item, quantity: newQuantity } : item
       )
     );
   };
@@ -36,7 +36,7 @@ export default function CartPage() {
   const removeItem = (id) => {
     setItems((prevItems) =>
       prevItems.filter((item) => {
-        if (item.id === id) {
+        if (item?.id === id) {
           // Trigger remove animation
           const element = document.getElementById(`cart-item-${id}`);
           if (element) {
@@ -57,7 +57,7 @@ export default function CartPage() {
   };
 
   const subtotal = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item?.price * item?.quantity,
     0
   );
   const tax = subtotal * 0.08;
@@ -70,8 +70,8 @@ export default function CartPage() {
         <div className="space-y-6">
           {items?.map((item, index) => (
             <div
-              key={item.id}
-              id={`cart-item-${item.id}`}
+              key={item?.id}
+              id={`cart-item-${item?.id}`}
               className={`flex flex-col sm:flex-row border rounded-lg p-4 hover:shadow-md transition-all duration-300 ${
                 index === 0 ? "animate-fade-in" : ""
               }`}
@@ -82,18 +82,18 @@ export default function CartPage() {
             >
               <div className="flex-shrink-0 w-full sm:w-32 h-32 relative">
                 <Image
-                  src={item.image}
-                  alt={item.name}
+                  src={item?.image}
+                  alt={item?.name}
                   fill
                   className="object-contain hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div className="mt-4 sm:mt-0 sm:ml-6 flex-grow">
                 <h3 className="text-lg font-medium group-hover:text-primary-600 transition-colors duration-300">
-                  {item.name}
+                  {item?.name}
                 </h3>
                 <p className="mt-1 text-lg font-bold">
-                  ${item.price.toFixed(2)}
+                  ${item?.price.toFixed(2)}
                 </p>
 
                 <div className="mt-4 flex items-center space-x-4">
@@ -101,18 +101,22 @@ export default function CartPage() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() =>
+                        updateQuantity(item?.id, item?.quantity - 1)
+                      }
                       className="px-3 hover:bg-gray-100 transition-colors duration-200 active:scale-95"
                     >
                       -
                     </Button>
                     <span className="px-3 transition-all duration-200">
-                      {item.quantity}
+                      {item?.quantity}
                     </span>
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() =>
+                        updateQuantity(item?.id, item?.quantity + 1)
+                      }
                       className="px-3 hover:bg-gray-100 transition-colors duration-200 active:scale-95"
                     >
                       +
@@ -121,7 +125,7 @@ export default function CartPage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => removeItem(item?.id)}
                     className="text-red-600 hover:text-red-500 transition-colors duration-200 active:scale-95"
                   >
                     Remove

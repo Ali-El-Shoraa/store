@@ -71,7 +71,7 @@ export default function CheckoutStep({
     }
 
     const newId =
-      addresses.length > 0 ? Math.max(...addresses.map((a) => a.id)) + 1 : 1;
+      addresses?.length > 0 ? Math.max(...addresses?.map((a) => a.id)) + 1 : 1;
     const addressToAdd = {
       id: newId,
       name: newAddress.name,
@@ -82,7 +82,7 @@ export default function CheckoutStep({
 
     // إذا تم تحديده كافتراضي، نلغي التحديد من العناوين الأخرى
     if (newAddress.isDefault) {
-      setAddresses(addresses.map((addr) => ({ ...addr, isDefault: false })));
+      setAddresses(addresses?.map((addr) => ({ ...addr, isDefault: false })));
     }
 
     setAddresses([...addresses, addressToAdd]);
@@ -161,9 +161,10 @@ export default function CheckoutStep({
                         </SelectTrigger>
                         <SelectContent>
                           {addresses.map((address) => (
-                            <SelectItem key={address.id} value={address.id}>
-                              {address.name} {address.isDefault && "(افتراضي)"}{" "}
-                              - {address.address}
+                            <SelectItem key={address?.id} value={address?.id}>
+                              {address?.name}{" "}
+                              {address?.isDefault && "(افتراضي)"} -{" "}
+                              {address?.address}
                             </SelectItem>
                           ))}
 
@@ -197,7 +198,7 @@ export default function CheckoutStep({
                               </Label>
                               <Input
                                 id="addressName"
-                                value={newAddress.name}
+                                value={newAddress?.name}
                                 onChange={(e) =>
                                   setNewAddress({
                                     ...newAddress,
@@ -210,7 +211,7 @@ export default function CheckoutStep({
                               <Label htmlFor="firstName">الاسم الأول</Label>
                               <Input
                                 id="firstName"
-                                value={newAddress.firstName}
+                                value={newAddress?.firstName}
                                 onChange={(e) =>
                                   setNewAddress({
                                     ...newAddress,
@@ -223,7 +224,7 @@ export default function CheckoutStep({
                               <Label htmlFor="lastName">الاسم الأخير</Label>
                               <Input
                                 id="lastName"
-                                value={newAddress.lastName}
+                                value={newAddress?.lastName}
                                 onChange={(e) =>
                                   setNewAddress({
                                     ...newAddress,
@@ -238,7 +239,7 @@ export default function CheckoutStep({
                             <Label htmlFor="address">العنوان التفصيلي</Label>
                             <Input
                               id="address"
-                              value={newAddress.address}
+                              value={newAddress?.address}
                               onChange={(e) =>
                                 setNewAddress({
                                   ...newAddress,
@@ -252,7 +253,7 @@ export default function CheckoutStep({
                             <Label htmlFor="city">المدينة</Label>
                             <Input
                               id="city"
-                              value={newAddress.city}
+                              value={newAddress?.city}
                               onChange={(e) =>
                                 setNewAddress({
                                   ...newAddress,
@@ -266,7 +267,7 @@ export default function CheckoutStep({
                             <input
                               type="checkbox"
                               id="defaultAddress"
-                              checked={newAddress.isDefault}
+                              checked={newAddress?.isDefault}
                               onChange={(e) =>
                                 setNewAddress({
                                   ...newAddress,
@@ -511,7 +512,7 @@ export default function CheckoutStep({
 //     }
 
 //     const newId =
-//       addresses.length > 0 ? Math.max(...addresses.map((a) => a.id)) + 1 : 1;
+//       addresses?.length > 0 ? Math.max(...addresses?.map((a) => a.id)) + 1 : 1;
 //     const addressToAdd = {
 //       id: newId,
 //       name: newAddress.name,

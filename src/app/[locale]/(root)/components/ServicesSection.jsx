@@ -7,7 +7,7 @@ export default async function ServicesSection() {
   return (
     <div className="py-8 bg-white border border-gray-300 rounded-lg">
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-4 px-4">
-        {services.map(({ id, icon: Icon, bg, fg }, index) => {
+        {services?.map(({ id, icon: Icon, bg, fg }, index) => {
           return (
             <div
               key={id}

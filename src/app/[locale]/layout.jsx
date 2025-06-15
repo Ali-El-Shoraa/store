@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import ButtonToTop from "@/components/ButtonToTop";
 import LoadingBarComponents from "@/components/LoaderProgressBar";
+// import Loading from "./loading";
 
 // async function delay(ms) {
 //   return new Promise((resolve) => setTimeout(resolve, ms));

@@ -58,8 +58,8 @@ export default function ShareButtons({ url, title }) {
   ];
 
   return (
-    <div className="flex items-center gap-2">
-      {sharePlatforms.map((platform) => (
+    <div className="flex items-center gap-2 my-3.5">
+      {sharePlatforms?.map((platform) => (
         <Tooltip key={platform?.name}>
           <TooltipTrigger asChild>
             <Button

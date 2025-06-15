@@ -1,39 +1,48 @@
-// التعديل المطلوب: طباعة الفاتورة فقط بدون مكتبات
-// التعديل سيكون في دالة handleDownloadInvoice، وإضافة ref لعنصر الفاتورة
-
 "use client";
 
 import { useRef, useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Download } from "lucide-react";
+import { FileText, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { ordersItemsHistory } from "@/lib/ordersItemsHistory";
-// import {
-//   Pagination,
-//   PaginationContent,
-//   PaginationItem,
-//   PaginationLink,
-//   PaginationNext,
-//   PaginationPrevious,
-// } from "@/components/ui/pagination";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Link } from "@/i18n/navigation";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { categories } from "@/lib/productItem";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { formatCurrency } from "@/utils/formatCurrency";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from "@/components/ui/pagination";
+import { Link } from "@/i18n/navigation";
+
+const statusFilters = [
+  { value: "all", label: "All" },
+  { value: "delivered", label: "Delivered" },
+  { value: "shipped", label: "Shipped" },
+  { value: "processing", label: "Processing" },
+  { value: "cancelled", label: "Cancelled" },
+];
 
 export default function OrderHistoryPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,12 +53,10 @@ export default function OrderHistoryPage() {
   const itemsPerPage = 5;
 
   const filteredOrders = ordersItemsHistory.filter((order) => {
-    if (filter === "all") return true;
-    return order.status.toLowerCase() === filter;
+    return filter === "all" || order.status.toLowerCase() === filter;
   });
 
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
-
   const currentItems = filteredOrders.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -58,6 +65,7 @@ export default function OrderHistoryPage() {
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -88,576 +96,391 @@ export default function OrderHistoryPage() {
     WinPrint.close();
   };
 
+  const statusBadgeVariant = (status) => {
+    switch (status.toLowerCase()) {
+      case "delivered":
+        return "success";
+      case "shipped":
+        return "info";
+      case "processing":
+        return "warning";
+      case "cancelled":
+        return "destructive";
+      default:
+        return "outline";
+    }
+  };
+
   return (
-    <>
-      <div className="flex flex-wrap justify-between items-center gap-6 mb-12">
-        <div className="">
-          <h2 className="text-2xl font-bold text-brand-secoundry mb-3">
-            Order History
-          </h2>
-          <p className="text-base text-slate-600">
+    <div className="space-y-6">
+      {/* Header Section */}
+      <div className="flex flex-col gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Order History</h1>
+          <p className="text-muted-foreground">
             View and manage your past orders
           </p>
         </div>
-        {/* <div className="w-full md:w-auto">
-           <div className="relative">
-             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-             <Input
-               placeholder="Search orders..."
-               className="pl-10 w-full md:w-64"
-             />
-           </div>
-         </div> */}
-      </div>
 
-      {/* استبدال Tabs بـ Select */}
-      <div className="flex items-center gap-4 mb-8">
+        {/* Status Tabs */}
         <Tabs
-          // value={activeCategory}
-          // onValueChange={handleCategoryChange}
-          className=""
-        >
-          <div className="flex flex-col gap-4 md:flex-row rtl:md:flex-row-reverse md:items-center md:justify-between">
-            {/* <HeaderSection title={titleSection} subTitle={subTitleSection} /> */}
-
-            <TabsList className="grid w-full grid-cols-4 md:w-auto gap-2">
-              {categories.map((category) => (
-                <TabsTrigger
-                  key={category?.id}
-                  value={category?.id}
-                  className="text-xs md:text-sm data-[state=active]:text-white data-[state=active]:bg-brand-secoundry border-brand-secoundry"
-                >
-                  {category?.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
-        </Tabs>
-        {/*
-         <span className="text-sm font-medium text-slate-600">Filter by:</span>
-        <Select
           value={filter}
           onValueChange={(value) => {
             setFilter(value);
             setCurrentPage(1);
           }}
+          className="w-full"
         >
-          <SelectTrigger className="w-[180px] bg-white">
-            <SelectValue placeholder="Select status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Orders</SelectItem>
-            <SelectItem value="delivered">Delivered</SelectItem>
-            <SelectItem value="shipped">Shipped</SelectItem>
-            <SelectItem value="processing">Processing</SelectItem>
-            <SelectItem value="cancelled">Cancelled</SelectItem>
-          </SelectContent>
-        </Select> */}
+          <TabsList className="grid w-full grid-cols-5 h-12">
+            {statusFilters?.map((status) => (
+              <TabsTrigger
+                key={status?.value}
+                value={status?.value}
+                className="flex items-center gap-2.5"
+              >
+                <span>{status?.label}</span>
+                <span className="text-xs font-normal mt-1">
+                  (
+                  {
+                    ordersItemsHistory.filter(
+                      (o) =>
+                        status.value === "all" ||
+                        o.status.toLowerCase() === status.value
+                    )?.length
+                  }
+                  )
+                </span>
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
       </div>
 
-      <div className="space-y-6">
+      {/* Orders Table (Desktop) */}
+      <div className="hidden md:block">
+        <Card>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[150px]">Order ID</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Items</TableHead>
+                <TableHead className="text-right">Total</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {currentItems.length > 0 ? (
+                currentItems.map((order) => (
+                  <TableRow key={order.id}>
+                    <TableCell className="font-medium">
+                      <span className="font-semibold">{order.id}</span>
+                    </TableCell>
+                    <TableCell>{order.date}</TableCell>
+                    <TableCell>
+                      <Badge variant={statusBadgeVariant(order.status)}>
+                        {order.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>{order.products.length}</TableCell>
+                    <TableCell className="text-right font-medium">
+                      {formatCurrency(order.total)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-8 gap-1"
+                          // onClick={() => handleInvoiceClick(order)}
+                        >
+                          <Link
+                            href={`/invoices/${order?.id?.replace("#", "")}`}
+                            className="flex justify-end gap-2"
+                          >
+                            <FileText className="h-3.5 w-3.5" />
+                            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                              View
+                            </span>
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="default"
+                          size="sm"
+                          className="h-8 gap-1"
+                          onClick={() => handleInvoiceClick(order)}
+                        >
+                          <Download className="h-3.5 w-3.5" />
+                          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                            Download
+                          </span>
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={6} className="h-24 text-center">
+                    No orders found for this filter.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </Card>
+      </div>
+
+      {/* Orders Cards (Mobile) */}
+      <div className="space-y-4 md:hidden">
         {currentItems.length > 0 ? (
           currentItems.map((order) => (
-            <Card key={order?.id}>
-              <CardHeader className="border-b pb-4">
-                <div className="flex flex-wrap justify-between items-center gap-4">
+            <Card key={order.id} className="hover:shadow-md transition-shadow">
+              <CardHeader className="pb-3">
+                <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-lg font-semibold">
-                      {order?.id}
-                    </CardTitle>
-                    <p className="text-sm text-slate-600 mt-1">{order?.date}</p>
+                    <CardTitle className="text-lg">{order.id}</CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      {order.date}
+                    </p>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <Badge className={order?.status}>{order?.status}</Badge>
-                    <div className="text-right">
-                      <p className="text-lg font-semibold text-slate-900">
-                        ${order?.total.toFixed(2)}
-                      </p>
-                      <p className="text-slate-600 text-sm mt-1">
-                        {order?.products.length} items
-                      </p>
-                    </div>
-                  </div>
+                  <Badge variant={statusBadgeVariant(order.status)}>
+                    {order.status}
+                  </Badge>
                 </div>
               </CardHeader>
-              <CardContent className="pt-6">
-                <div className="flex flex-wrap gap-4">
-                  <Button variant="outline">
-                    <Link
-                      href={`/invoice/${order?.id}`}
-                      // variant="outline"
-                      className="flex items-center gap-2"
-                      // onClick={() => handleInvoiceClick(order)}
-                    >
-                      <FileText className="h-4 w-4" />
-                      Invoice
-                    </Link>
-                  </Button>
-                  <Button
-                    variant="default"
-                    className="flex items-center gap-2 cursor-pointer"
-                    // download={order}
-                    // onClick={() => handleInvoiceClick(order)}
-                  >
-                    <Link
-                      href={`/`}
-                      download
-                      onClick={(e) => {
-                        e.preventDefault();
-                        // window.print();
-                        // console.log(e);
-                        handleInvoiceClick(order);
-                      }}
-                    >
-                      <FileText className="h-4 w-4" />
-                      Download Invoice
-                    </Link>
-                  </Button>
+              <CardContent className="pb-3">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Items:</span>
+                    <span className="text-sm text-muted-foreground">
+                      {order.products.length}
+                    </span>
+                  </div>
+                  <div className="text-lg font-semibold">
+                    {formatCurrency(order.total)}
+                  </div>
                 </div>
               </CardContent>
+              <CardFooter className="flex gap-2 pt-0">
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => handleInvoiceClick(order)}
+                >
+                  <FileText className="h-4 w-4 mr-2" />
+                  View
+                </Button>
+                <Button
+                  variant="default"
+                  className="flex-1"
+                  onClick={() => handleInvoiceClick(order)}
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Download
+                </Button>
+              </CardFooter>
             </Card>
           ))
         ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-500">No orders found for this filter.</p>
-          </div>
+          <Card>
+            <CardContent className="py-12 text-center">
+              <p className="text-muted-foreground">
+                No orders found for this filter.
+              </p>
+            </CardContent>
+          </Card>
         )}
       </div>
-      {/* ... */}
+
+      {/* Enhanced Pagination */}
+      {filteredOrders.length > 0 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-sm text-muted-foreground">
+            Showing{" "}
+            <span className="font-medium">
+              {(currentPage - 1) * itemsPerPage + 1}
+            </span>{" "}
+            to{" "}
+            <span className="font-medium">
+              {Math.min(currentPage * itemsPerPage, filteredOrders.length)}
+            </span>{" "}
+            of <span className="font-medium">{filteredOrders.length}</span>{" "}
+            orders
+          </div>
+
+          <Pagination className={`justify-end`}>
+            <PaginationContent>
+              <PaginationItem>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  <span className="sr-only sm:not-sr-only sm:ml-2">
+                    Previous
+                  </span>
+                </Button>
+              </PaginationItem>
+
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                let pageNum;
+                if (totalPages <= 5) {
+                  pageNum = i + 1;
+                } else if (currentPage <= 3) {
+                  pageNum = i + 1;
+                } else if (currentPage >= totalPages - 2) {
+                  pageNum = totalPages - 4 + i;
+                } else {
+                  pageNum = currentPage - 2 + i;
+                }
+
+                return (
+                  <PaginationItem key={pageNum}>
+                    <Button
+                      variant={currentPage === pageNum ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handlePageChange(pageNum)}
+                    >
+                      {pageNum}
+                    </Button>
+                  </PaginationItem>
+                );
+              })}
+
+              <PaginationItem>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  <span className="sr-only sm:not-sr-only sm:mr-2">Next</span>
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      )}
+
+      {/* Invoice Dialog */}
       <Dialog open={openInvoiceDialog} onOpenChange={setOpenInvoiceDialog}>
-        <DialogContent className="sm:max-w-2xl">
+        <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Invoice #{currentInvoice?.id}</DialogTitle>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              Invoice #{currentInvoice?.id}
+            </DialogTitle>
           </DialogHeader>
 
           {currentInvoice && (
             <div ref={invoiceRef} className="space-y-6">
-              {/* معلومات الفاتورة */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
                   <h3 className="font-semibold">Order Details</h3>
-                  <p className="text-sm text-gray-600">
-                    Date: {currentInvoice.date}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Status:{" "}
-                    <span className="capitalize">{currentInvoice.status}</span>
-                  </p>
+                  <div className="text-sm">
+                    <p className="text-muted-foreground">
+                      <span className="font-medium">Date:</span>{" "}
+                      {currentInvoice.date}
+                    </p>
+                    <p className="text-muted-foreground">
+                      <span className="font-medium">Status:</span>{" "}
+                      <Badge
+                        variant={statusBadgeVariant(currentInvoice.status)}
+                      >
+                        {currentInvoice.status}
+                      </Badge>
+                    </p>
+                  </div>
                 </div>
-                <div className="text-right">
+                <div className="space-y-2 text-right">
                   <h3 className="font-semibold">Total Amount</h3>
-                  <p className="text-lg font-bold">
-                    ${currentInvoice.total.toFixed(2)}
+                  <p className="text-2xl font-bold">
+                    {formatCurrency(currentInvoice.total)}
                   </p>
                 </div>
               </div>
 
-              {/* قائمة المنتجات */}
-              <div>
-                <h3 className="font-semibold mb-2">Products</h3>
-                <div className="space-y-4">
-                  {currentInvoice.products.map((product, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-center border-b pb-2"
-                    >
-                      <div className="flex items-center gap-3">
-                        <Image
-                          width={48}
-                          height={48}
-                          src={product.image}
-                          alt={product.name}
-                          className="w-12 h-12 object-contain"
-                        />
-                        <div>
-                          <p className="font-medium">{product.name}</p>
-                          <p className="text-sm text-gray-600">
-                            Qty: {product.quantity}
-                          </p>
-                        </div>
-                      </div>
-                      <p className="font-medium">
-                        ${(product.price * product.quantity).toFixed(2)}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+              <div className="border rounded-lg overflow-hidden">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Product</TableHead>
+                      <TableHead className="text-right">Quantity</TableHead>
+                      <TableHead className="text-right">Price</TableHead>
+                      <TableHead className="text-right">Total</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {currentInvoice.products.map((product, index) => (
+                      <TableRow key={index}>
+                        <TableCell>
+                          <div className="flex items-center gap-4">
+                            <Image
+                              width={48}
+                              height={48}
+                              src={product.image}
+                              alt={product.name}
+                              className="w-12 h-12 object-contain rounded-md"
+                            />
+                            <div>
+                              <p className="font-medium">{product.name}</p>
+                              <p className="text-sm text-muted-foreground">
+                                SKU: {product.sku || "N/A"}
+                              </p>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {product.quantity}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {formatCurrency(product.price)}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {formatCurrency(product.price * product.quantity)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </div>
 
-              {/* ملخص */}
-              <div className="border-t pt-4">
-                <div className="flex justify-between mb-2">
-                  <span>Subtotal:</span>
-                  <span>${currentInvoice.total.toFixed(2)}</span>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Subtotal:</span>
+                  <span>{formatCurrency(currentInvoice.total)}</span>
                 </div>
-                <div className="flex justify-between mb-2">
-                  <span>Shipping:</span>
-                  <span>$0.00</span>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Shipping:</span>
+                  <span>{formatCurrency(0.0)}</span>
                 </div>
-                <div className="flex justify-between font-bold text-lg">
+                <div className="flex justify-between border-t pt-2 font-bold text-lg">
                   <span>Total:</span>
-                  <span>${currentInvoice.total.toFixed(2)}</span>
+                  <span>{formatCurrency(currentInvoice.total)}</span>
                 </div>
               </div>
             </div>
           )}
 
-          {/* زر تحميل الفاتورة */}
-          <div className="flex justify-end mt-4">
+          <div className="flex justify-end gap-2">
             <Button
-              onClick={handleDownloadInvoice}
-              className="flex items-center gap-2"
+              variant="outline"
+              onClick={() => setOpenInvoiceDialog(false)}
             >
+              Close
+            </Button>
+            <Button onClick={handleDownloadInvoice} className="gap-2">
               <Download className="h-4 w-4" />
               Print / Save Invoice
             </Button>
           </div>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }
-
-// "use client";
-
-// import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-// import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
-// import { Badge } from "@/components/ui/badge";
-// import {
-//   ArrowLeft,
-//   Search,
-//   Eye,
-//   RefreshCw,
-//   FileText,
-//   Download,
-// } from "lucide-react";
-// import Image from "next/image";
-// import { ordersItemsHistory } from "@/lib/ordersItemsHistory";
-// import {
-//   Pagination,
-//   PaginationContent,
-//   PaginationItem,
-//   PaginationLink,
-//   PaginationNext,
-//   PaginationPrevious,
-// } from "@/components/ui/pagination";
-// import { useState } from "react";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogHeader,
-//   DialogTitle,
-// } from "@/components/ui/dialog";
-// import { Link } from "@/i18n/navigation";
-
-// export default function OrderHistoryPage() {
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [filter, setFilter] = useState("all");
-//   const [openInvoiceDialog, setOpenInvoiceDialog] = useState(false);
-//   const [currentInvoice, setCurrentInvoice] = useState(null);
-//   const itemsPerPage = 5;
-
-//   // تصفية الطلبات بناء على الحالة المختارة
-//   const filteredOrders = ordersItemsHistory.filter((order) => {
-//     if (filter === "all") return true;
-//     return order.status.toLowerCase() === filter;
-//   });
-
-//   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
-
-//   const currentItems = filteredOrders.slice(
-//     (currentPage - 1) * itemsPerPage,
-//     currentPage * itemsPerPage
-//   );
-
-//   const handlePageChange = (page) => {
-//     if (page >= 1 && page <= totalPages) {
-//       setCurrentPage(page);
-//     }
-//   };
-
-//   const handleInvoiceClick = (order) => {
-//     setCurrentInvoice(order);
-//     setOpenInvoiceDialog(true);
-//   };
-
-//   const handleDownloadInvoice = () => {
-//     // هنا يمكنك إضافة منطق لتحميل الفاتورة
-//     // مثلاً: إنشاء ملف PDF أو تنزيله من الخادم
-//     alert(`Downloading invoice for order ${currentInvoice.id}`);
-//     // يمكنك استبدال هذا بتنفيذ حقيقي لتحميل الملف
-//   };
-
-//   return (
-//     <>
-//       <div className="flex flex-wrap justify-between items-center gap-6 mb-12">
-//         <div className="">
-//           <h2 className="text-2xl font-bold text-brand-secoundry mb-3">
-//             Order History
-//           </h2>
-//           <p className="text-base text-slate-600">
-//             View and manage your past orders
-//           </p>
-//         </div>
-//         {/* <div className="w-full md:w-auto">
-//           <div className="relative">
-//             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-//             <Input
-//               placeholder="Search orders..."
-//               className="pl-10 w-full md:w-64"
-//             />
-//           </div>
-//         </div> */}
-//       </div>
-
-//       {/* استبدال Tabs بـ Select */}
-//       <div className="flex items-center gap-4 mb-8">
-//         <span className="text-sm font-medium text-slate-600">Filter by:</span>
-//         <Select
-//           value={filter}
-//           onValueChange={(value) => {
-//             setFilter(value);
-//             setCurrentPage(1);
-//           }}
-//         >
-//           <SelectTrigger className="w-[180px] bg-white">
-//             <SelectValue placeholder="Select status" />
-//           </SelectTrigger>
-//           <SelectContent>
-//             <SelectItem value="all">All Orders</SelectItem>
-//             <SelectItem value="delivered">Delivered</SelectItem>
-//             <SelectItem value="shipped">Shipped</SelectItem>
-//             <SelectItem value="processing">Processing</SelectItem>
-//             <SelectItem value="cancelled">Cancelled</SelectItem>
-//           </SelectContent>
-//         </Select>
-//       </div>
-
-//       <div className="space-y-6">
-//         {currentItems.length > 0 ? (
-//           currentItems.map((order) => (
-//             <Card key={order?.id}>
-//               <CardHeader className="border-b pb-4">
-//                 <div className="flex flex-wrap justify-between items-center gap-4">
-//                   <div>
-//                     <CardTitle className="text-lg font-semibold">
-//                       {order?.id}
-//                     </CardTitle>
-//                     <p className="text-sm text-slate-600 mt-1">{order?.date}</p>
-//                   </div>
-//                   <div className="flex items-center gap-4">
-//                     <Badge className={order?.status}>{order?.status}</Badge>
-//                     <div className="text-right">
-//                       <p className="text-lg font-semibold text-slate-900">
-//                         ${order?.total.toFixed(2)}
-//                       </p>
-//                       <p className="text-slate-600 text-sm mt-1">
-//                         {order?.products.length} items
-//                       </p>
-//                     </div>
-//                   </div>
-//                 </div>
-//               </CardHeader>
-//               <CardContent className="pt-6">
-//                 <div className="flex flex-wrap gap-4">
-//                   <Button variant="outline">
-//                     <Link
-//                       href={`/invoice/${order?.id}`}
-//                       // variant="outline"
-//                       className="flex items-center gap-2"
-//                       // onClick={() => handleInvoiceClick(order)}
-//                     >
-//                       <FileText className="h-4 w-4" />
-//                       Invoice
-//                     </Link>
-//                   </Button>
-
-//                   <Button
-//                     variant="default"
-//                     className="flex items-center gap-2 cursor-pointer"
-//                     // download={order}
-//                     // onClick={() => handleInvoiceClick(order)}
-//                   >
-//                     <Link
-//                       href={`/`}
-//                       download
-//                       onClick={(e) => {
-//                         e.preventDefault();
-//                         window.print();
-//                         console.log(e);
-//                         // handleInvoiceClick(order);
-//                       }}
-//                     >
-//                       <FileText className="h-4 w-4" />
-//                       Download Invoice
-//                     </Link>
-//                   </Button>
-//                 </div>
-//               </CardContent>
-//             </Card>
-//           ))
-//         ) : (
-//           <div className="text-center py-12">
-//             <p className="text-gray-500">No orders found for this filter.</p>
-//           </div>
-//         )}
-//       </div>
-
-//       {/* Dialog لعرض الفاتورة */}
-//       <Dialog open={openInvoiceDialog} onOpenChange={setOpenInvoiceDialog}>
-//         <DialogContent className="sm:max-w-2xl">
-//           <DialogHeader>
-//             <DialogTitle>Invoice #{currentInvoice?.id}</DialogTitle>
-//           </DialogHeader>
-
-//           {currentInvoice && (
-//             <div className="space-y-6">
-//               {/* معلومات الفاتورة */}
-//               <div className="grid grid-cols-2 gap-4">
-//                 <div>
-//                   <h3 className="font-semibold">Order Details</h3>
-//                   <p className="text-sm text-gray-600">
-//                     Date: {currentInvoice.date}
-//                   </p>
-//                   <p className="text-sm text-gray-600">
-//                     Status:{" "}
-//                     <span className="capitalize">{currentInvoice.status}</span>
-//                   </p>
-//                 </div>
-//                 <div className="text-right">
-//                   <h3 className="font-semibold">Total Amount</h3>
-//                   <p className="text-lg font-bold">
-//                     ${currentInvoice.total.toFixed(2)}
-//                   </p>
-//                 </div>
-//               </div>
-
-//               {/* قائمة المنتجات */}
-//               <div>
-//                 <h3 className="font-semibold mb-2">Products</h3>
-//                 <div className="space-y-4">
-//                   {currentInvoice.products.map((product, index) => (
-//                     <div
-//                       key={index}
-//                       className="flex justify-between items-center border-b pb-2"
-//                     >
-//                       <div className="flex items-center gap-3">
-//                         <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden">
-//                           <Image
-//                             width={48}
-//                             height={48}
-//                             src={product.image}
-//                             alt={product.name}
-//                             className="w-full h-full object-contain"
-//                           />
-//                         </div>
-//                         <div>
-//                           <p className="font-medium">{product.name}</p>
-//                           <p className="text-sm text-gray-600">
-//                             Qty: {product.quantity}
-//                           </p>
-//                         </div>
-//                       </div>
-
-//                       <p className="font-medium">
-//                         ${(product.price * product.quantity).toFixed(2)}
-//                       </p>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
-
-//               {/* ملخص الفاتورة */}
-//               <div className="border-t pt-4">
-//                 <div className="flex justify-between mb-2">
-//                   <span>Subtotal:</span>
-//                   <span>${currentInvoice.total.toFixed(2)}</span>
-//                 </div>
-//                 <div className="flex justify-between mb-2">
-//                   <span>Shipping:</span>
-//                   <span>$0.00</span>
-//                 </div>
-//                 <div className="flex justify-between font-bold text-lg">
-//                   <span>Total:</span>
-//                   <span>${currentInvoice.total.toFixed(2)}</span>
-//                 </div>
-//               </div>
-
-//               {/* زر التحميل */}
-//               <div className="flex justify-end">
-//                 <Button
-//                   onClick={handleDownloadInvoice}
-//                   className="flex items-center gap-2"
-//                 >
-//                   <Download className="h-4 w-4" />
-//                   Download Invoice
-//                 </Button>
-//               </div>
-//             </div>
-//           )}
-//         </DialogContent>
-//       </Dialog>
-
-//       {filteredOrders.length > 0 && (
-//         <div className="flex justify-center mt-12">
-//           <Pagination>
-//             <PaginationContent>
-//               <PaginationItem>
-//                 <PaginationPrevious
-//                   href="#"
-//                   onClick={(e) => {
-//                     e.preventDefault();
-//                     handlePageChange(currentPage - 1);
-//                   }}
-//                   className={
-//                     currentPage === 1 ? "pointer-events-none opacity-50" : ""
-//                   }
-//                 />
-//               </PaginationItem>
-
-//               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-//                 (page) => (
-//                   <PaginationItem key={page}>
-//                     <PaginationLink
-//                       href="#"
-//                       onClick={(e) => {
-//                         e.preventDefault();
-//                         handlePageChange(page);
-//                       }}
-//                       isActive={page === currentPage}
-//                     >
-//                       {page}
-//                     </PaginationLink>
-//                   </PaginationItem>
-//                 )
-//               )}
-
-//               <PaginationItem>
-//                 <PaginationNext
-//                   href="#"
-//                   onClick={(e) => {
-//                     e.preventDefault();
-//                     handlePageChange(currentPage + 1);
-//                   }}
-//                   className={
-//                     currentPage === totalPages
-//                       ? "pointer-events-none opacity-50"
-//                       : ""
-//                   }
-//                 />
-//               </PaginationItem>
-//             </PaginationContent>
-//           </Pagination>
-//         </div>
-//       )}
-//     </>
-//   );
-// }

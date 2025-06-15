@@ -56,7 +56,7 @@ export default function TopFeatured({
         <HeaderSection title={titleSection} subTitle={subTitleSection} />
 
         <TabsList className="grid w-full grid-cols-4 md:w-auto gap-2">
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <TabsTrigger
               key={category?.id}
               value={category?.id}
@@ -68,12 +68,12 @@ export default function TopFeatured({
         </TabsList>
       </div>
 
-      {categories.map((category) => (
+      {categories?.map((category) => (
         <TabsContent key={category?.id} value={category?.id} className="mt-6">
           {/* Product Carousel */}
           {isLoading ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-              {[...Array(6)].map((_, index) => (
+              {[...Array(6)]?.map((_, index) => (
                 <ProductCardSkeleton key={index} />
               ))}
             </div>
@@ -85,7 +85,7 @@ export default function TopFeatured({
               className="w-full"
             >
               <CarouselContent>
-                {products.map((product) => (
+                {products?.map((product) => (
                   <CarouselItem
                     key={product?.id}
                     className="basis-full  md:basis-1/2 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6 "

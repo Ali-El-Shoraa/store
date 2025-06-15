@@ -11,12 +11,12 @@ export function ProductGallery({ images = [], alt = "" }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const nextImage = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  }, [images.length]);
+    setCurrentIndex((prev) => (prev + 1) % images?.length);
+  }, [images?.length]);
 
   const prevImage = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  }, [images.length]);
+    setCurrentIndex((prev) => (prev - 1 + images?.length) % images?.length);
+  }, [images?.length]);
 
   const selectImage = useCallback((index) => {
     setCurrentIndex(index);

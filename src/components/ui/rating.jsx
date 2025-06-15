@@ -17,7 +17,7 @@ export function Rating({
 
   return (
     <div className={cn("flex items-center", className)} id={id}>
-      {[...Array(max)].map((_, index) => {
+      {[...Array(max)]?.map((_, index) => {
         const ratingValue = index + 1;
         return (
           <label key={index}>

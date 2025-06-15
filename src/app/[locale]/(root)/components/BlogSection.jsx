@@ -63,7 +63,7 @@ export default function BlogSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   // const itemsPerView = 4;
-  const totalPosts = blogPosts.length;
+  const totalPosts = blogPosts?.length;
 
   // Create an infinite loop effect by duplicating the posts array
   const extendedPosts = [...blogPosts, ...blogPosts, ...blogPosts];

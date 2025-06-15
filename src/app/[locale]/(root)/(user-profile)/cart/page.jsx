@@ -30,18 +30,18 @@
 //   const updateQuantity = (id, newQuantity) => {
 //     if (newQuantity < 1) return;
 //     setItems(
-//       items.map((item) =>
-//         item.id === id ? { ...item, quantity: newQuantity } : item
+//       items?.map((item) =>
+//         item?.id === id ? { ...item, quantity: newQuantity } : item
 //       )
 //     );
 //   };
 
 //   const removeItem = (id) => {
-//     setItems(items.filter((item) => item.id !== id));
+//     setItems(items.filter((item) => item?.id !== id));
 //   };
 
 //   const subtotal = items.reduce(
-//     (sum, item) => sum + item.price * item.quantity,
+//     (sum, item) => sum + item?.price * item?.quantity,
 //     0
 //   );
 //   const tax = subtotal * 0.08;
@@ -92,23 +92,23 @@
 
 //       <div className="grid md:grid-cols-3 gap-8">
 //         <div className="md:col-span-2 space-y-6">
-//           {items.map((item) => (
+//           {items?.map((item) => (
 //             <div
-//               key={item.id}
+//               key={item?.id}
 //               className="flex flex-col sm:flex-row border rounded-lg p-4"
 //             >
 //               <div className="flex-shrink-0 w-full sm:w-32 h-32 relative">
 //                 <Image
-//                   src={item.image}
-//                   alt={item.name}
+//                   src={item?.image}
+//                   alt={item?.name}
 //                   fill
 //                   className="object-contain"
 //                 />
 //               </div>
 //               <div className="mt-4 sm:mt-0 sm:ml-6 flex-grow">
-//                 <h3 className="text-lg font-medium">{item.name}</h3>
+//                 <h3 className="text-lg font-medium">{item?.name}</h3>
 //                 <p className="mt-1 text-lg font-bold">
-//                   ${item.price.toFixed(2)}
+//                   ${item?.price.toFixed(2)}
 //                 </p>
 
 //                 <div className="mt-4 flex items-center space-x-4">
@@ -116,16 +116,16 @@
 //                     <Button
 //                       variant="ghost"
 //                       size="sm"
-//                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
+//                       onClick={() => updateQuantity(item?.id, item?.quantity - 1)}
 //                       className="px-3"
 //                     >
 //                       -
 //                     </Button>
-//                     <span className="px-3">{item.quantity}</span>
+//                     <span className="px-3">{item?.quantity}</span>
 //                     <Button
 //                       variant="ghost"
 //                       size="sm"
-//                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
+//                       onClick={() => updateQuantity(item?.id, item?.quantity + 1)}
 //                       className="px-3"
 //                     >
 //                       +
@@ -134,7 +134,7 @@
 //                   <Button
 //                     variant="ghost"
 //                     size="sm"
-//                     onClick={() => removeItem(item.id)}
+//                     onClick={() => removeItem(item?.id)}
 //                     className="text-red-600 hover:text-red-500"
 //                   >
 //                     Remove
@@ -238,7 +238,7 @@ export default function CartPage() {
   ];
 
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item?.price * item?.quantity,
     0
   );
 
@@ -283,13 +283,13 @@ export default function CartPage() {
         </CardHeader>
 
         <CardContent className="p-0 divide-y">
-          {cartItems.map((item) => (
-            <div key={item.id} className="p-6">
+          {cartItems?.map((item) => (
+            <div key={item?.id} className="p-6">
               <div className="flex flex-col sm:flex-row gap-6">
                 <div className="w-full sm:w-32 h-32 relative rounded-lg overflow-hidden border">
                   <Image
-                    src={item.image}
-                    alt={item.name}
+                    src={item?.image}
+                    alt={item?.name}
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, 128px"
@@ -299,15 +299,15 @@ export default function CartPage() {
                 <div className="flex-1">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold">{item.name}</h3>
+                      <h3 className="text-lg font-semibold">{item?.name}</h3>
                       <p className="text-sm text-muted-foreground">
-                        Brand: {item.brand}
+                        Brand: {item?.brand}
                       </p>
                       <div className="flex flex-wrap items-center gap-4 text-sm">
                         {/* <p>
                           Size:{" "}
                           <span className="text-muted-foreground">
-                            {item.size}
+                            {item?.size}
                           </span>
                         </p> */}
                         <div className="flex items-center gap-2">
@@ -321,7 +321,7 @@ export default function CartPage() {
                               <Minus className="h-4 w-4" />
                             </Button>
                             <span className="px-2 text-sm font-medium">
-                              {item.quantity}
+                              {item?.quantity}
                             </span>
                             <Button
                               variant="ghost"
@@ -337,12 +337,12 @@ export default function CartPage() {
                       </div>
                       {/* <div className="mt-2">
                         <span
-                          className={`px-2 py-1 text-xs rounded-full ${item.statusColor}`}
+                          className={`px-2 py-1 text-xs rounded-full ${item?.statusColor}`}
                         >
-                          {item.status}
+                          {item?.status}
                         </span>
                         <p className="text-xs text-muted-foreground mt-1">
-                          Estimated delivery: {item.deliveryDate}
+                          Estimated delivery: {item?.deliveryDate}
                         </p>
                       </div> */}
                     </div>
@@ -351,7 +351,7 @@ export default function CartPage() {
                       <div className="text-right">
                         <p className="text-sm text-muted-foreground">Price</p>
                         <p className="font-medium text-primary">
-                          ${item.price.toFixed(2)}
+                          ${item?.price.toFixed(2)}
                         </p>
                       </div>
                       <div className="text-right">
@@ -359,7 +359,7 @@ export default function CartPage() {
                           Subtotal
                         </p>
                         <p className="font-medium">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ${(item?.price * item?.quantity).toFixed(2)}
                         </p>
                       </div>
                     </div>

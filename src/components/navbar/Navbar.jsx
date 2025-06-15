@@ -1,3 +1,252 @@
+// "use client";
+// import Image from "next/image";
+// import SubNavbar from "./SubNavbar";
+// import InputNavbar from "./InputNavbar";
+// import LocaleSwitcher from "../locale-switcher";
+// import { Link, usePathname } from "@/i18n/navigation";
+// import {
+//   Sheet,
+//   SheetContent,
+//   SheetHeader,
+//   SheetTitle,
+//   SheetTrigger,
+// } from "../ui/sheet";
+
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
+// import {
+//   Layers,
+//   Star,
+//   ShoppingBag,
+//   User,
+//   Heart,
+//   X,
+//   ArrowRight,
+// } from "lucide-react";
+
+// import { Button } from "../ui/button";
+// import { Badge } from "../ui/badge";
+// import { useEffect, useState } from "react";
+// import { Separator } from "../ui/separator";
+// import { formatCurrency } from "@/utils/formatCurrency";
+// import IncDecProduct from "../IncDecProduct";
+
+// export const initialCartItems = [
+//   {
+//     id: 1,
+//     name: "Minimal Sneaker",
+//     price: 299,
+//     quantity: 2,
+//     image: "/image/product/photo1.webp",
+//   },
+//   {
+//     id: 2,
+//     name: "Classic T-Shirt",
+//     price: 150,
+//     quantity: 1,
+//     image: "/image/product/photo2.webp",
+//   },
+//   {
+//     id: 3,
+//     name: "Denim Jacket",
+//     price: 450,
+//     quantity: 1,
+//     image: "/image/product/photo3.webp",
+//   },
+// ];
+
+// export default function Navbar() {
+//   const [isCartOpen, setIsCartOpen] = useState(false);
+//   const [, setIsMobileMenuOpen] = useState(false);
+//   const [cartItems, setCartItems] = useState(initialCartItems);
+//   const [isScrolled, setIsScrolled] = useState(false);
+//   const pathname = usePathname();
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       if (window.scrollY > 10) {
+//         setIsScrolled(true);
+//       } else {
+//         setIsScrolled(false);
+//       }
+//     };
+
+//     window.addEventListener("scroll", handleScroll);
+//     return () => window.removeEventListener("scroll", handleScroll);
+//   }, []);
+
+//   // Close sheet when pathname changes
+//   useEffect(() => {
+//     setIsCartOpen(false);
+//     setIsMobileMenuOpen(false);
+//   }, [pathname]);
+
+//   const updateQuantity = (id, newQuantity) => {
+//     if (newQuantity < 1) {
+//       removeItem(id);
+//       return;
+//     }
+//     setCartItems((items) =>
+//       items.map((item) =>
+//         item?.id === id ? { ...item, quantity: newQuantity } : item
+//       )
+//     );
+//   };
+
+//   // Calculate cart totals
+//   const cartItemsCount = cartItems.reduce(
+//     (sum, item) => sum + item?.quantity,
+//     0
+//   );
+//   const cartTotal = cartItems.reduce(
+//     (sum, item) => sum + item?.price * item?.quantity,
+//     0
+//   );
+
+//   const removeItem = (id) => {
+//     setCartItems((items) => items.filter((item) => item?.id !== id));
+//   };
+
+//   return (
+//     <header className="bg-brand-color mb-7 sticky top-0 z-50 transition-all duration-300">
+//       <nav
+//         className={`container h-[100px] flex items-center justify-between gap-5 transition-all duration-300 ${
+//           isScrolled ? "md:h-20" : ""
+//         }`}
+//       >
+//         <Link href={`/`} className="h-full flex items-center justify-center">
+//           <Image
+//             src={`/image/logo.png`}
+//             alt="logo"
+//             width={isScrolled ? 120 : 155}
+//             height={isScrolled ? 30 : 39}
+//           />
+//         </Link>
+
+//         <div
+//           className={`flex items-center justify-end md:justify-between gap-7 flex-1 transition-all duration-300 ${
+//             isScrolled ? "md:opacity-0 md:pointer-events-none md:absolute" : ""
+//           }`}
+//         >
+//           <div className="hidden md:block w-full">
+//             <InputNavbar />
+//           </div>
+
+//           <div className="text-background flex items-center gap-6">
+//             {/* زر المنتجات */}
+//             <Link href="/payment">
+//               <Button
+//                 variant="ghost"
+//                 size="icon"
+//                 className="text-background hover:bg-transparent hover:text-brand-secoundry cursor-pointer"
+//               >
+//                 <Layers className="size-7" />
+//               </Button>
+//             </Link>
+
+//             {/* أيقونة المفضلة */}
+//             <Link href="/favorites">
+//               <Button
+//                 variant="ghost"
+//                 size="icon"
+//                 className="text-background hover:bg-transparent hover:text-brand-secoundry cursor-pointer"
+//               >
+//                 <Heart className="size-7" />
+//               </Button>
+//             </Link>
+
+//             {/* أيقونة المستخدم مع القائمة المنسدلة */}
+//             <DropdownMenu>
+//               <DropdownMenuTrigger asChild>
+//                 <Button
+//                   variant="ghost"
+//                   size="icon"
+//                   className="text-background hover:bg-transparent hover:text-brand-secondary cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0"
+//                 >
+//                   <User className="size-7" />
+//                   <span className="sr-only">قائمة المستخدم</span>
+//                 </Button>
+//               </DropdownMenuTrigger>
+//               <DropdownMenuContent>
+//                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
+//                 <DropdownMenuSeparator />
+//                 <DropdownMenuItem>
+//                   <Link href="/profile" className="w-full cursor-pointer">
+//                     Profile
+//                   </Link>
+//                 </DropdownMenuItem>
+//                 <DropdownMenuItem>
+//                   <Link href="/login" className="w-full cursor-pointer">
+//                     Login
+//                   </Link>
+//                 </DropdownMenuItem>
+//               </DropdownMenuContent>
+//             </DropdownMenu>
+
+//             {/* سلة التسوق */}
+//             <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+//               <SheetTrigger asChild>
+//                 <Button
+//                   variant="ghost"
+//                   size="icon"
+//                   className="text-background hover:bg-white/10 hover:text-brand-secondary transition-all duration-200 hover:scale-110 relative"
+//                 >
+//                   <ShoppingBag className="size-6" />
+//                   {cartItemsCount > 0 && (
+//                     <Badge
+//                       variant="destructive"
+//                       className="absolute -right-2 -top-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs animate-pulse"
+//                     >
+//                       {cartItemsCount}
+//                     </Badge>
+//                   )}
+//                   <span className="sr-only">Shopping Cart</span>
+//                 </Button>
+//               </SheetTrigger>
+
+//               <SheetContent
+//                 side="right"
+//                 className="w-full sm:max-w-md animate-in slide-in-from-right duration-300"
+//               >
+//                 {/* ... محتوى سلة التسوق كما هو ... */}
+//               </SheetContent>
+//             </Sheet>
+//           </div>
+//         </div>
+//       </nav>
+
+//       <hr className="border-[#1c394a]" />
+//       <nav
+//         className={`container text-white h-14 flex items-center justify-between transition-all duration-300 ${
+//           isScrolled
+//             ? "md:fixed md:top-0 md:left-0 md:right-0 md:bg-brand-color md:z-50 md:px-4"
+//             : ""
+//         }`}
+//       >
+//         <SubNavbar />
+
+//         <div className="block md:hidden">
+//           <InputNavbar />
+//         </div>
+
+//         <div
+//           className={`hidden md:block transition-all duration-300 ${
+//             isScrolled ? "md:ml-auto md:mr-4" : ""
+//           }`}
+//         >
+//           <LocaleSwitcher />
+//         </div>
+//       </nav>
+//     </header>
+//   );
+// }
+
 "use client";
 import Image from "next/image";
 import SubNavbar from "./SubNavbar";
@@ -201,11 +450,11 @@ export default function Navbar() {
                   )}
                 </SheetHeader>
                 <div className="flex flex-col h-full">
-                  {cartItems.length > 0 ? (
+                  {cartItems?.length > 0 ? (
                     <>
                       {/* Cart Items */}
                       <div className="flex-1 overflow-y-auto space-y-4 p-6">
-                        {cartItems.map((item, index) => (
+                        {cartItems?.map((item, index) => (
                           <div
                             key={item?.id}
                             className={`flex items-center gap-4 p-4 rounded-lg border hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 animate-in slide-in-from-right-5`}
