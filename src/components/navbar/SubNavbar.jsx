@@ -73,236 +73,19 @@
 //   );
 // }
 
-"use client";
+// "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  ChevronDown,
-  Menu,
-  Tablet,
-  Laptop,
-  Dumbbell,
-  LayoutGrid,
-  BookOpen,
-  Info,
-  Phone,
-  MapPin,
-} from "lucide-react";
-import Link from "next/link";
+import DesktopNavigation from "./DesktopNavigation";
+import MobileNavigation from "./MobileNavigation";
 
-const subNavbarItem = [
-  {
-    id: 1,
-    title: "Tablets & iPad",
-    link: "#",
-    icon: <Tablet className="h-4 w-4" />,
-  },
-  {
-    id: 2,
-    title: "Computer",
-    link: "#",
-    icon: <Laptop className="h-4 w-4" />,
-  },
-  {
-    id: 3,
-    title: "Sport",
-    link: "#",
-    icon: <Dumbbell className="h-4 w-4" />,
-  },
-  {
-    id: 4,
-    title: "Categories",
-    link: "#",
-    icon: <LayoutGrid className="h-4 w-4" />,
-    children: [
-      {
-        id: 41,
-        title: "Shop By Brand",
-        link: "#",
-        icon: <LayoutGrid className="h-4 w-4" />,
-      },
-      {
-        id: 42,
-        title: "FAQ",
-        link: "#",
-        icon: <Info className="h-4 w-4" />,
-      },
-    ],
-  },
-  {
-    id: 5,
-    title: "Blog",
-    link: "#",
-    icon: <BookOpen className="h-4 w-4" />,
-  },
-  {
-    id: 6,
-    title: "About Us",
-    link: "#",
-    icon: <Info className="h-4 w-4" />,
-  },
-  {
-    id: 7,
-    title: "Contact",
-    link: "#",
-    icon: <Phone className="h-4 w-4" />,
-  },
-  {
-    id: 8,
-    title: "Find a store",
-    link: "#",
-    icon: <MapPin className="h-4 w-4" />,
-  },
-];
-
-export default function ResponsiveNavbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [expandedItems, setExpandedItems] = useState([]);
-
-  const toggleExpanded = (id) => {
-    setExpandedItems((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
-  const closeSheet = () => {
-    setIsOpen(false);
-    setExpandedItems([]);
-  };
-
+export default function SubNavbar() {
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center gap-6 text-sm font-semibold uppercase">
-        {subNavbarItem?.map((item) =>
-          item?.children ? (
-            <HoverCard key={item?.id} openDelay={0} closeDelay={200}>
-              <HoverCardTrigger>
-                <h3 className="flex items-center gap-1 cursor-pointer hover:text-brand-secoundry transition-colors">
-                  {item?.icon}
-                  {item?.title}
-                  <ChevronDown className="h-4 w-4" />
-                </h3>
-              </HoverCardTrigger>
-              <HoverCardContent
-                className="w-[200px] p-2"
-                side="bottom"
-                align="start"
-              >
-                <ul className="grid gap-2">
-                  {item?.children?.map((child) => (
-                    <li key={child?.id}>
-                      <Link
-                        className="flex items-center gap-2 hover:bg-gray-100 block p-2 rounded transition-colors"
-                        href={child?.link}
-                      >
-                        {child?.icon}
-                        {child?.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </HoverCardContent>
-            </HoverCard>
-          ) : (
-            <Link
-              key={item?.id}
-              href={item?.link}
-              className="flex items-center gap-1 hover:text-brand-secoundry transition-colors"
-            >
-              {item?.icon}
-              {item?.title}
-            </Link>
-          )
-        )}
-      </div>
+      <DesktopNavigation />
 
       {/* Mobile Navigation */}
-      <div className="lg:hidden me-7">
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:bg-transparent hover:text-brand-secoundry cursor-pointer"
-            >
-              <Menu className="size-7" />
-              <span className="sr-only">Open menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-[300px] sm:w-[350px]">
-            <SheetHeader>
-              <SheetTitle className="text-left">Menu</SheetTitle>
-            </SheetHeader>
-            <nav className="mt-6">
-              <ul className="space-y-2">
-                {subNavbarItem?.map((item) => (
-                  <li key={item?.id}>
-                    {item?.children ? (
-                      <div>
-                        <button
-                          onClick={() => toggleExpanded(item?.id)}
-                          className="flex items-center justify-between w-full p-3 text-left font-medium hover:bg-gray-100 rounded-lg transition-colors"
-                        >
-                          <div className="flex items-center gap-2">
-                            {item?.icon}
-                            {item?.title}
-                          </div>
-                          <ChevronDown
-                            className={`h-4 w-4 transition-transform ${
-                              expandedItems.includes(item?.id)
-                                ? "rotate-180"
-                                : ""
-                            }`}
-                          />
-                        </button>
-                        {expandedItems.includes(item?.id) && (
-                          <ul className="ml-4 mt-2 space-y-1">
-                            {item?.children?.map((child) => (
-                              <li key={child?.id}>
-                                <Link
-                                  href={child?.link}
-                                  onClick={closeSheet}
-                                  className="flex items-center gap-2 p-2 text-sm text-gray-600 hover:bg-gray-50 rounded transition-colors"
-                                >
-                                  {child?.icon}
-                                  {child?.title}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ) : (
-                      <Link
-                        href={item?.link}
-                        onClick={closeSheet}
-                        className="flex items-center gap-2 p-3 font-medium hover:bg-gray-100 rounded-lg transition-colors"
-                      >
-                        {item?.icon}
-                        {item?.title}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </SheetContent>
-        </Sheet>
-      </div>
+      <MobileNavigation />
     </>
   );
 }
@@ -477,33 +260,33 @@ export default function ResponsiveNavbar() {
 //             </SheetHeader>
 //             <nav className="mt-6">
 //               <ul className="space-y-2">
-//                 {subNavbarItem?.map((item) => (
-//                   <li key={item?.id}>
-//                     {item?.children ? (
+//                 {subNavbarItem.map((item) => (
+//                   <li key={item.id}>
+//                     {item.children ? (
 //                       <div>
 //                         <button
-//                           onClick={() => toggleExpanded(item?.id)}
+//                           onClick={() => toggleExpanded(item.id)}
 //                           className="flex items-center justify-between w-full p-3 text-left font-medium hover:bg-gray-100 rounded-lg transition-colors"
 //                         >
-//                           <span>{item?.title}</span>
+//                           <span>{item.title}</span>
 //                           <ChevronDown
 //                             className={`h-4 w-4 transition-transform ${
-//                               expandedItems.includes(item?.id)
+//                               expandedItems.includes(item.id)
 //                                 ? "rotate-180"
 //                                 : ""
 //                             }`}
 //                           />
 //                         </button>
-//                         {expandedItems.includes(item?.id) && (
+//                         {expandedItems.includes(item.id) && (
 //                           <ul className="ml-4 mt-2 space-y-1">
-//                             {item?.children.map((child) => (
-//                               <li key={child?.id}>
+//                             {item.children.map((child) => (
+//                               <li key={child.id}>
 //                                 <Link
-//                                   href={child?.link}
+//                                   href={child.link}
 //                                   onClick={closeSheet}
 //                                   className="block p-2 text-sm text-gray-600 hover:bg-gray-50 rounded transition-colors"
 //                                 >
-//                                   {child?.title}
+//                                   {child.title}
 //                                 </Link>
 //                               </li>
 //                             ))}
@@ -512,11 +295,11 @@ export default function ResponsiveNavbar() {
 //                       </div>
 //                     ) : (
 //                       <Link
-//                         href={item?.link}
+//                         href={item.link}
 //                         onClick={closeSheet}
 //                         className="block p-3 font-medium hover:bg-gray-100 rounded-lg transition-colors"
 //                       >
-//                         {item?.title}
+//                         {item.title}
 //                       </Link>
 //                     )}
 //                   </li>
