@@ -78,10 +78,13 @@ export default function Navbar() {
       >
         {/* <header className="bg-brand-color w-full"> */}
         <nav className="container text-white h-16 flex items-center justify-between gap-5">
-          <LogoNavbar compact />
-          <DesktopNavigation />
+          <LogoNavbar />
+
+          <div className="text-[8px]">
+            <DesktopNavigation />
+          </div>
           <div className="flex items-center gap-4">
-            <ActionsHeader compact />
+            <ActionsHeader />
             <LocaleSwitcher />
           </div>
         </nav>

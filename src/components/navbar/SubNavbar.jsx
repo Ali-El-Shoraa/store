@@ -82,7 +82,9 @@ export default function SubNavbar() {
   return (
     <>
       {/* Desktop Navigation */}
-      <DesktopNavigation />
+      <div className="md:text-xs">
+        <DesktopNavigation />
+      </div>
 
       {/* Mobile Navigation */}
       <MobileNavigation />

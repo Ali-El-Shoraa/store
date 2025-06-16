@@ -12,7 +12,7 @@ import { ChevronDown } from "lucide-react";
 
 export default function DesktopNavigation() {
   return (
-    <div className="hidden lg:flex items-center gap-3 xl:gap-6 text-[8px] md:text-xs font-semibold uppercase">
+    <div className="hidden lg:flex items-center gap-3 xl:gap-6 font-semibold uppercase">
       {subNavbarItem?.map((item) =>
         item?.children ? (
           <HoverCard key={item?.id} openDelay={0} closeDelay={200}>
