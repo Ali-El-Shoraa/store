@@ -82,7 +82,7 @@ export default function SubNavbar() {
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="md:text-xs">
+      <div className="md:text-xs max-lg:hidden">
         <DesktopNavigation />
       </div>
 

@@ -78,23 +78,37 @@ function ProductCard({ product }) {
           </div>
         </div>
 
-        <Link
-          href={`/product/${product?.name?.toLowerCase().replaceAll(" ", "-")}`}
-        >
-          {/* product details */}
-          <div className="p-4">
+        {/* product details */}
+        <div className="p-4">
+          <Link
+            href={`/product/${product?.title
+              ?.toLowerCase()
+              .replaceAll(" ", "-")}`}
+          >
             <h3 className="text-gray-800 font-medium text-base line-clamp-1">
               {product?.title}
             </h3>
             <p className="uppercase text-green-600 text-xs font-medium mt-1">
               {product?.brand}
             </p>
+          </Link>
+          {/* التقييمات */}
 
-            {/* التقييمات */}
+          <Link
+            href={`/product/${product?.title
+              ?.toLowerCase()
+              .replaceAll(" ", "-")}`}
+          >
             <RatingComponent rating={product?.rating} />
+          </Link>
 
-            {/* السعر */}
-            <div className="flex items-baseline justify-between mt-3">
+          {/* السعر */}
+          <div className="flex items-baseline justify-between mt-3">
+            <Link
+              href={`/product/${product?.title
+                ?.toLowerCase()
+                .replaceAll(" ", "-")}`}
+            >
               <div className="flex flex-col items-baseline gap-2">
                 <span className="text-blue-600 text-lg font-semibold">
                   {product?.discountPrice
@@ -107,17 +121,17 @@ function ProductCard({ product }) {
                   </span>
                 )}
               </div>
+            </Link>
 
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full w-10 h-10"
-              >
-                <ShoppingCart className="w-4 h-4" />
-              </Button>
-            </div>
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full w-10 h-10"
+            >
+              <ShoppingCart className="w-4 h-4" />
+            </Button>
           </div>
-        </Link>
+        </div>
       </CardContent>
     </Card>
   );
