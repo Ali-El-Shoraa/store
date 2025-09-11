@@ -34,6 +34,7 @@ export default function Hero() {
 
     return () => clearInterval(interval);
   }, [api]);
+
   return (
     <div className="">
       <div className="relative">
@@ -48,16 +49,30 @@ export default function Hero() {
           <CarouselContent className={`ltr:flex-row rtl:flex-row-reverse`}>
             {heroItem?.map((slide) => (
               <CarouselItem key={slide?.id} className="w-full">
-                <div
+                {/* <div
                   className={`relative overflow-hidden rounded-lg w-full ${slide?.color}`}
                 >
                   <Image
                     dir="ltr"
-                    width={1000}
-                    height={1000}
+                    width={500}
+                    height={500}
                     src={slide?.image || "/placeholder.svg"}
                     alt={slide?.title}
                     className="w-full h-full opacity-90 transition-opacity duration-300"
+                  /> */}
+                <div className="relative w-full h-[500px] max-md:h-[250px] rounded-lg overflow-hidden">
+                  {/* <Image
+                    src={slide?.image || "/placeholder.svg"}
+                    alt={slide?.title}
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                  /> */}
+                  <Image
+                    src={slide?.image || "/placeholder.svg"}
+                    alt={slide?.title}
+                    fill
+                    className="object-cover h-[500px] opacity-90 transition-opacity duration-300"
                   />
                   <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/60 to-transparent">
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
@@ -73,6 +88,44 @@ export default function Hero() {
           </CarouselContent>
         </Carousel>
       </div>
+
+      {/* <div className="relative">
+        <Carousel
+          setApi={setApi}
+          className="w-full"
+          opts={{
+            align: "center",
+            loop: true,
+          }}
+        >
+          <CarouselContent className={`ltr:flex-row rtl:flex-row-reverse`}>
+            {heroItem?.map((slide) => (
+              <CarouselItem key={slide?.id} className="w-full">
+                <div
+                  className={`relative overflow-hidden rounded-lg w-full h-[400px] md:h-[500px] lg:h-[600px] ${slide?.color}`}
+                >
+                  <Image
+                    fill
+                    src={slide?.image || "/placeholder.svg"}
+                    alt={slide?.title}
+                    className="object-cover opacity-90 transition-opacity duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                    priority={slide?.id === heroItem[0]?.id} // للصورة الأولى فقط
+                  />
+                  <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/60 to-transparent">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                      {slide?.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-white/80 max-w-lg">
+                      {slide?.description}
+                    </p>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </div> */}
 
       {/* Pagination dots */}
       <div className="flex justify-center items-center gap-2 mt-6">

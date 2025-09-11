@@ -9,6 +9,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "store.mediagrafico.com",
+      },
+      {
+        protocol: "https",
         hostname: "images.pexels.com",
         pathname: "/photos/**",
       },

@@ -1,5 +1,8 @@
 import { generateSEOMetadata } from "@/utils/metadata-generator";
 import IndexHomePage from "./components/IndexHomePage";
+import HydrateQuery from "@/providers/HydrateQuery";
+import { getData } from "@/app/api/getData";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 export const metadata = generateSEOMetadata({
   title: "Ayo 7 - Clean, Minimal Magento 2 Theme",
   description: "My page description",
@@ -9,12 +12,17 @@ export const metadata = generateSEOMetadata({
 });
 
 export default async function Home() {
-  // const t = useTranslations("page");
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["our-features"],
+    queryFn: () => getData("our-features"),
+  });
 
   return (
-    <>
+    <HydrateQuery state={dehydrate(queryClient)}>
       <IndexHomePage />
       {/* <LocaleSwitcher /> */}
-    </>
+    </HydrateQuery>
   );
 }

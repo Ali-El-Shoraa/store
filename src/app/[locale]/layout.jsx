@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import ButtonToTop from "@/components/ButtonToTop";
 import LoadingBarComponents from "@/components/LoaderProgressBar";
+import QueryProvider from "@/providers/QueryProvider";
 // import Loading from "./loading";
 
 // async function delay(ms) {
@@ -41,7 +42,7 @@ export default async function LocaleLayout({ children, params }) {
             <LoadingBarComponents />
             <WebVitals />
             <Suspense fallback={<Loading />}>
-              {children}
+              <QueryProvider>{children}</QueryProvider>
               <ButtonToTop />
             </Suspense>
           </main>
