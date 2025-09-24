@@ -16,24 +16,16 @@ export default function AboutUs() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   //   const videoRef = useRef(null);
 
-  const {
-    data: { testimonials, values, stats, milestones, teamMembers, videoUrl },
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["about-us-4"],
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["about-us"],
     queryFn: () => getDataFake(`api/about`),
   });
 
-  console.log(
-    "testimonials, values, stats, milestones, teamMembers, videoUrl",
-    testimonials,
-    values,
-    stats,
-    milestones,
-    teamMembers,
-    videoUrl
-  );
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>;
+
+  const { testimonials, values, stats, milestones, teamMembers, videoUrl } =
+    data || {};
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) =>
       prev === testimonials.length - 1 ? 0 : prev + 1

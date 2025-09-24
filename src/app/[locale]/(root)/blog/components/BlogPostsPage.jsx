@@ -152,17 +152,17 @@ export default function BlogPostsPage() {
             <FeaturedPost />
 
             {/* Blog Posts Grid */}
-            {/* <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
               {blogPosts?.data?.map((post) => (
                 <BlogPostsCard key={post.id} post={post} />
               ))}
-            </div> */}
+            </div>
 
             {/* No Results Message */}
             {blogPosts?.total === 0 && <NoArticlesFound />}
 
             {/* Pagination */}
-            {blogPosts?.pagination?.totalPages > 0 && (
+            {/* {blogPosts?.pagination?.totalPages > 0 && (
               <div className="flex justify-center items-center space-x-2">
                 <Button
                   variant="outline"
@@ -201,7 +201,7 @@ export default function BlogPostsPage() {
                   <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>
               </div>
-            )}
+            )} */}
           </div>
 
           {/* Sidebar */}

@@ -23,9 +23,9 @@ export default function Testimonials() {
     queryKey: ["testimonials"],
     queryFn: () => getDataFake("api/testimonials"),
   });
-
-  if (error) return <div>Error loading testimonials</div>;
   if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading testimonials</div>;
+  console.log("testimonials: ", testimonials);
 
   const featuredTestimonials = testimonials.filter((t) => t.featured);
   const filteredTestimonials =
