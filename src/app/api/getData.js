@@ -2,7 +2,8 @@
 
 import { getLocale } from "next-intl/server";
 
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const baseURL =
+  process.env.NEXT_PUBLIC_API_BASE_URL_TEST ?? "http://localhost:3000/"; //process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const getData = async (endpoint, options) => {
   const locale = await getLocale();
