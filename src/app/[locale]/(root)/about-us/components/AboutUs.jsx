@@ -21,10 +21,19 @@ export default function AboutUs() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["about-us"],
+    queryKey: ["about-us-4"],
     queryFn: () => getDataFake(`api/about`),
   });
 
+  console.log(
+    "testimonials, values, stats, milestones, teamMembers, videoUrl",
+    testimonials,
+    values,
+    stats,
+    milestones,
+    teamMembers,
+    videoUrl
+  );
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) =>
       prev === testimonials.length - 1 ? 0 : prev + 1
