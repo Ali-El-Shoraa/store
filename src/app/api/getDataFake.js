@@ -5,6 +5,7 @@ import { getLocale } from "next-intl/server";
 const baseURL =
   process.env.NEXT_PUBLIC_API_BASE_URL_TEST ?? "http://localhost:3000/";
 
+console.log("baseURL: ", baseURL);
 export const getDataFake = async (endpoint, options) => {
   const locale = await getLocale();
   // console.log("locale: ", locale);
