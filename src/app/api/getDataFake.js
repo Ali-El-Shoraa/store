@@ -2,11 +2,12 @@
 
 import { getLocale } from "next-intl/server";
 
-const baseURL = "http://localhost:3000/";
+const baseURL =
+  process.env.NEXT_PUBLIC_API_BASE_URL_TEST ?? "http://localhost:3000/";
 
 export const getDataFake = async (endpoint, options) => {
   const locale = await getLocale();
-  console.log("locale: ", locale);
+  // console.log("locale: ", locale);
   const url = `${baseURL}${endpoint}`;
 
   const headers = {
