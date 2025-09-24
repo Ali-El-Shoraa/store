@@ -163,11 +163,3 @@ export default function IndexPaymentPage() {
     </div>
   );
 }
-
-// Step indicator component
-
-// Cart step component
-
-// Checkout step component
-
-// Confirmation step component

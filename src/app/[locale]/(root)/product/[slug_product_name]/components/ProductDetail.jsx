@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import { ChevronRight, ZoomIn, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 export function ProductGallery({ images = [], alt = "" }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -135,6 +135,11 @@ export function ProductGallery({ images = [], alt = "" }) {
           className="max-w-[90vw] max-h-[90vh] p-0 bg-transparent border-none"
           onKeyDown={handleKeyDown}
         >
+          {/* ✅ العنوان */}
+          <DialogTitle className="sr-only">
+            {alt || "Product Image"}
+          </DialogTitle>
+
           <div className="relative w-full h-full">
             <Image
               src={images[currentIndex]}

@@ -136,7 +136,8 @@
       "phone": "(+100) 123 456 7890 - (+100) 123 456 7891"
     },
     "copyright": {
-      "text": "Copyright © Ayo All Rights Reserved. Ali El-Shoraa"
+      "text": "Copyright © Ayo All Rights Reserved.",
+      "textCopyright": "Ali El-Shoraa"
     }
   }
 }

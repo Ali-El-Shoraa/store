@@ -10,14 +10,14 @@ export default async function InformationCompany() {
       <h4 className="text-lg font-semibold mb-4">{t.raw("title")}</h4>
       <div className="space-y-2">
         <Link
-          href="#"
+          href="/testimonials"
           className="text-gray-300 hover:text-white flex items-center gap-2"
         >
           <RightHandPointer className="w-4 h-4 rtl:rotate-y-180" />{" "}
           {t("links.testimonials")}
         </Link>
         <Link
-          href="#"
+          href="/contact"
           className="text-gray-300 hover:text-white flex items-center gap-2"
         >
           <RightHandPointer className="w-4 h-4 rtl:rotate-y-180" />{" "}
@@ -31,25 +31,39 @@ export default async function InformationCompany() {
           {t("links.location")}
         </Link>
         <Link
-          href="#"
+          href="/our-guarantee"
           className="text-gray-300 hover:text-white flex items-center gap-2"
         >
           <RightHandPointer className="w-4 h-4 rtl:rotate-y-180" />{" "}
           {t("links.guarantee")}
         </Link>
         <Link
-          href="#"
+          href="/track-order"
           className="text-gray-300 hover:text-white flex items-center gap-2"
         >
           <RightHandPointer className="w-4 h-4 rtl:rotate-y-180" />{" "}
           {t("links.trackOrder")}
         </Link>
-        <Link
-          href="#"
+        {/* <Link
+          href="/help-page"
           className="text-gray-300 hover:text-white flex items-center gap-2"
         >
           <RightHandPointer className="w-4 h-4 rtl:rotate-y-180" />{" "}
           {t("links.helpPage")}
+        </Link> */}
+
+        <Link
+          href="/terms-and-condition"
+          className="text-gray-300 hover:text-white flex items-center gap-2"
+        >
+          <RightHandPointer className="w-4 h-4 rtl:rotate-y-180" /> Terms &
+          Condition
+        </Link>
+        <Link
+          href="/faq"
+          className="text-gray-300 hover:text-white flex items-center gap-2"
+        >
+          <RightHandPointer className="w-4 h-4 rtl:rotate-y-180" /> FAQ
         </Link>
       </div>
     </div>

@@ -1,12 +1,13 @@
+// app/[locale]/loading.js
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Lottie from "lottie-react";
 
 export default function Loading() {
   const [animationData, setAnimationData] = useState(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetch("/animations/loading.json")
       .then((res) => res.json())
       .then((data) => setAnimationData(data));

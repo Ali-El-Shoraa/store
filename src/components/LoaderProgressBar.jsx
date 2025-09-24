@@ -1,73 +1,84 @@
 "use client";
 
-import HolyLoader, { startHolyLoader, stopHolyLoader } from "holy-loader";
-import { useLinkStatus } from "next/link";
-
-function startLoader() {
-  startHolyLoader();
-}
-
-function completeLoader() {
-  stopHolyLoader();
-}
+import { useLoadingStore } from "@/store/useLoadingStore";
+import NextTopLoader, { useTopLoader } from "nextjs-toploader";
+import { useRouter } from "nextjs-toploader/app";
+import { useEffect, useRef } from "react";
 
 export default function LoadingBarComponents() {
-  const { pending } = useLinkStatus();
+  const { setLoading } = useLoadingStore();
+  const loader = useTopLoader();
+  const router = useRouter();
+  const lastLoadingState = useRef(false);
+  const intervalRef = useRef(null);
+
+  console.log("intervalRef", intervalRef.current);
+  // مراقبة حالة TopLoader بفترات محددة (بدلاً من requestAnimationFrame المستمر)
+  useEffect(() => {
+    const checkLoadingStatus = () => {
+      const isLoaderActive = loader.isStarted();
+
+      // فقط إذا تغيرت الحالة
+      if (isLoaderActive !== lastLoadingState.current) {
+        lastLoadingState.current = isLoaderActive;
+        setLoading(isLoaderActive);
+
+        if (isLoaderActive) {
+          console.log("يبدأ مع تغيير المسار");
+        } else {
+          console.log("ينتهي بعد render");
+        }
+      }
+    };
+
+    // فحص كل 100ms بدلاً من requestAnimationFrame المستمر
+    intervalRef.current = setInterval(checkLoadingStatus, 50);
+
+    return () => {
+      if (intervalRef.current) {
+        console.log("intervalRef.current ", intervalRef.current);
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [loader, setLoading]);
+
+  // تعديل router methods
+  useEffect(() => {
+    const originalPush = router.push;
+    const originalReplace = router.replace;
+
+    router.push = (...args) => {
+      setLoading(true);
+      lastLoadingState.current = true;
+      console.log("يبدأ مع تغيير المسار");
+      return originalPush(...args);
+    };
+
+    router.replace = (...args) => {
+      setLoading(true);
+      lastLoadingState.current = true;
+      return originalReplace(...args);
+    };
+
+    return () => {
+      router.push = originalPush;
+      router.replace = originalReplace;
+    };
+  }, [router, setLoading]);
 
   return (
-    <div className="">
-      <HolyLoader color="linear-gradient(to right, #ff7e5f, #feb47b)" />
-    </div>
+    <NextTopLoader
+      color="#2299DD"
+      initialPosition={0.08}
+      crawlSpeed={200}
+      height={3}
+      crawl={true}
+      showSpinner={false}
+      easing="ease"
+      speed={200}
+      shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+      zIndex={1600}
+      showAtBottom={false}
+    />
   );
 }
-
-// "use client";
-
-// import { useRef, useEffect } from "react";
-// import LoadingBar from "react-top-loading-bar";
-// import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-// export default function LoadingBarComponents() {
-//   const loadingBarRef = useRef();
-//   const router = useRouter();
-
-//   let pathname = usePathname();
-//   let searchParams = useSearchParams();
-
-//   const handleStart = () => {
-//     if (loadingBarRef.current) {
-//       loadingBarRef.current.continuousStart();
-//     }
-//   };
-
-//   const handleComplete = () => {
-//     if (loadingBarRef.current) {
-//       loadingBarRef.current.complete();
-//     }
-//   };
-
-//   useEffect(() => {
-//     const originalPush = router.push;
-//     router.push = async (...args) => {
-//       handleStart();
-//       try {
-//         await originalPush(...args);
-//       } catch (error) {
-//         handleComplete();
-//         throw error;
-//       }
-//     };
-
-//     return () => {
-//       router.push = originalPush;
-//     };
-//   }, [router]);
-
-//   useEffect(() => {
-//     handleComplete();
-//   }, [pathname, searchParams]);
-
-//   return (
-//     <LoadingBar color="#29d" ref={loadingBarRef} height={5} shadow={false} />
-//   );
-// }

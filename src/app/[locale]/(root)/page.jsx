@@ -3,6 +3,9 @@ import IndexHomePage from "./components/IndexHomePage";
 import HydrateQuery from "@/providers/HydrateQuery";
 import { getData } from "@/app/api/getData";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
+import LayoutWithHydrateQuery from "@/components/LayoutWithHydrateQuery";
+import { Suspense } from "react";
+
 export const metadata = generateSEOMetadata({
   title: "Ayo 7 - Clean, Minimal Magento 2 Theme",
   description: "My page description",
@@ -21,8 +24,10 @@ export default async function Home() {
 
   return (
     <HydrateQuery state={dehydrate(queryClient)}>
+      {/* <LayoutWithHydrateQuery cash={``} children={``}> */}
       <IndexHomePage />
       {/* <LocaleSwitcher /> */}
+      {/* </LayoutWithHydrateQuery> */}
     </HydrateQuery>
   );
 }

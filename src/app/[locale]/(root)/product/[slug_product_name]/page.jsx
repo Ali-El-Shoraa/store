@@ -18,6 +18,7 @@ export async function generateMetadata({ params }) {
     tags: [formatData, "details"],
   });
 }
+
 export default function ProductDetailsPage() {
   return (
     <div className="bg-gray-50 mb-6">

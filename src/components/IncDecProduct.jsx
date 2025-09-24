@@ -1,40 +1,47 @@
 "use client";
-import { Minus, Plus } from "lucide-react";
-import { Button } from "./ui/button";
+
 import { useState } from "react";
+import { Button } from "./ui/button";
+import { Minus, Plus } from "lucide-react";
 
-export default function IncDecProduct() {
-  const [quantity, setQuantity] = useState(1);
+export default function IncDecProduct({ value = 1, onValueChange }) {
+  const [quantity, setQuantity] = useState(value);
 
-  const minusQuantity = () => {
-    setQuantity((prev) => (prev <= 1 ? 1 : prev - 1));
+  const increment = () => {
+    const newValue = quantity + 1;
+    setQuantity(newValue);
+    onValueChange && onValueChange(newValue);
   };
 
-  const plusQuantity = () => {
-    setQuantity((prev) => prev + 1);
+  const decrement = () => {
+    if (quantity > 1) {
+      const newValue = quantity - 1;
+      setQuantity(newValue);
+      onValueChange && onValueChange(newValue);
+    }
   };
 
   return (
-    <div className="flex items-center border rounded-md">
+    <div className="flex items-center border rounded-lg w-fit">
       <Button
         variant="ghost"
-        size="sm"
-        className="h-8 w-8 p-0 hover:bg-gray-100"
-        onClick={minusQuantity}
+        size="icon"
+        className="h-8 w-8 rounded-r-none"
+        onClick={decrement}
         disabled={quantity <= 1}
       >
-        <Minus className="h-4 w-4" />
+        <Minus className="h-3 w-3" />
       </Button>
-
-      <span className="px-2 text-sm font-medium">{quantity}</span>
-
+      <span className="flex items-center justify-center w-8 h-8 text-sm font-medium border-x">
+        {quantity}
+      </span>
       <Button
         variant="ghost"
-        size="sm"
-        className="h-8 w-8 p-0 hover:bg-gray-100"
-        onClick={plusQuantity}
+        size="icon"
+        className="h-8 w-8 rounded-l-none"
+        onClick={increment}
       >
-        <Plus className="h-4 w-4" />
+        <Plus className="h-3 w-3" />
       </Button>
     </div>
   );

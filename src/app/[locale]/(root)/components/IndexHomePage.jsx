@@ -68,7 +68,7 @@ const ads2 = [
 
 export default function IndexHomePage() {
   return (
-    <div className="container space-y-20">
+    <div className="container py-10 space-y-20">
       <Hero />
 
       <ServicesSection />
@@ -80,7 +80,7 @@ export default function IndexHomePage() {
           <AnimatedBanner
             key={item?.src}
             imageUrl={item?.src}
-            href="/"
+            href="#"
             alt="Paris cityscape with Eiffel Tower"
             title="Paris"
             description="Discover the city of lights"
@@ -89,8 +89,7 @@ export default function IndexHomePage() {
       </div>
 
       {/* Top Best Selling */}
-
-      <div className="my-14">
+      <div className="">
         <TopFeatured
           titleSection="Top Best Selling"
           subTitleSection="Product"
@@ -99,7 +98,7 @@ export default function IndexHomePage() {
         />
       </div>
 
-      <div className="my-14">
+      <div className="">
         <TopFeatured
           titleSection="Top Featured"
           subTitleSection="Product"
@@ -114,7 +113,7 @@ export default function IndexHomePage() {
             <AnimatedBanner
               imageUrl={item?.src}
               key={item?.src}
-              href="/destinations/paris"
+              href="#"
               alt="Paris cityscape with Eiffel Tower"
               title="Paris"
               description="Discover the city of lights"
@@ -122,7 +121,8 @@ export default function IndexHomePage() {
           ))}
         </div>
       </div>
-      <div className="my-14">
+
+      <div className="">
         <div className="mb-10">
           <HeaderSection title={`From Our`} subTitle={`Blog`} />
         </div>

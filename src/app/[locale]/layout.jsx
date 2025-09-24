@@ -3,13 +3,14 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "./globals.css";
 import { WebVitals } from "@/components/WebVitals";
-import { cairo, poppins } from "./font";
+// import { cairo, poppins } from "./font";
 // import LoaderProgressBar from "@/components/LoaderProgressBar";
 import { Suspense } from "react";
 import Loading from "./loading";
 import ButtonToTop from "@/components/ButtonToTop";
 import LoadingBarComponents from "@/components/LoaderProgressBar";
 import QueryProvider from "@/providers/QueryProvider";
+import LoadingPage from "@/components/LoadingPage";
 // import Loading from "./loading";
 
 // async function delay(ms) {
@@ -30,7 +31,7 @@ export default async function LocaleLayout({ children, params }) {
     <html
       lang={isArabic ? "ar" : "en"}
       dir={isArabic ? "rtl" : "ltr"}
-      className={`${isArabic ? cairo.variable : poppins.variable}`}
+      // className={`${isArabic ? cairo.variable : poppins.variable}`}
     >
       <body
         className={`bg-brand-bg antialiased ${
@@ -38,14 +39,18 @@ export default async function LocaleLayout({ children, params }) {
         }`}
       >
         <NextIntlClientProvider locale={locale}>
-          <main className="">
-            <LoadingBarComponents />
-            <WebVitals />
-            <Suspense fallback={<Loading />}>
-              <QueryProvider>{children}</QueryProvider>
-              <ButtonToTop />
-            </Suspense>
-          </main>
+          <QueryProvider>
+            <main className="">
+              <LoadingBarComponents />
+              <WebVitals />
+              <Suspense fallback={<Loading />}>
+                <LoadingPage>
+                  {children}
+                  <ButtonToTop />
+                </LoadingPage>
+              </Suspense>
+            </main>
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

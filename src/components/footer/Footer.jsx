@@ -7,13 +7,14 @@ import FooterSubscribe from "./FooterSubscribe";
 export default async function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-100 text-xs">
-      <div className="container py-12 flex gap-10 max-xl:grid grid-cols-2 max-md:grid-cols-1">
+      <div className="container py-12 flex justify-between gap-10 max-xl:grid grid-cols-2 max-md:grid-cols-1">
         <div className="w-1/4 max-xl:w-full">
-          <FooterAbout />
+          {" "}
+          <FooterAbout />{" "}
         </div>
 
         <div className="w-1/4 max-xl:w-full">
-          <QuickMenu />
+          <QuickMenu />{" "}
         </div>
 
         <div className="w-1/4 max-xl:w-full max-w-fit">
@@ -21,7 +22,8 @@ export default async function Footer() {
         </div>
 
         <div className="w-1/4 max-xl:w-full">
-          <FooterSubscribe />
+          {" "}
+          <FooterSubscribe />{" "}
         </div>
       </div>
       <FooterDown />

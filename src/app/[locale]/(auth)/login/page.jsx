@@ -84,6 +84,7 @@ export default function LoginPage() {
               </Label>
             </div>
             <Button
+              asChild
               variant="link"
               type="button"
               className="text-brand-secoundry hover:text-brand-secoundry/70 px-0 text-sm"
@@ -114,7 +115,7 @@ export default function LoginPage() {
         </div>
 
         {/* Google Sign In */}
-        <Button variant="outline" className="w-full">
+        <Button asChild variant="outline" className="w-full">
           <Image
             src="https://raw.githubusercontent.com/sidiDev/remote-assets/7cd06bf1d8859c578c2efbfda2c68bd6bedc66d8/google-icon.svg"
             alt="Google"
@@ -129,6 +130,7 @@ export default function LoginPage() {
         <p className="text-center text-sm text-gray-600">
           Don't have an account?{" "}
           <Button
+            asChild
             variant="link"
             className="text-brand-secoundry hover:text-brand-secoundry/70 px-0 text-sm"
           >

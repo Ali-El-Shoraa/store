@@ -14,11 +14,14 @@ export default function QueryProvider({ children }) {
             // cacheTime: 10 * 60 * 1000,
             staleTime: 0,
             cacheTime: 0,
+            refetchOnMount: false,
             refetchOnWindowFocus: false,
             retry: 2,
+
+            // suspense: true,
           },
           mutations: {
-            retry: 1,
+            retry: 2,
           },
         },
       })

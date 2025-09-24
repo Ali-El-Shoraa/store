@@ -1,13 +1,14 @@
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import LogoNavbar from "../navbar/LogoNavbar";
 
 export default async function FooterAbout() {
   const t = await getTranslations("Footer.about");
 
   return (
     <div className="space-y-6">
-      <Link href="/">
+      {/* <Link href="/">
         <Image
           src="/image/logo.png"
           alt="Logo"
@@ -15,8 +16,8 @@ export default async function FooterAbout() {
           height={50}
           className="mb-4"
         />
-      </Link>
-
+      </Link> */}
+      <LogoNavbar textColor="text-white" />
       <div className="flex items-start gap-4">
         <Image
           src="/image/head_phone.png"

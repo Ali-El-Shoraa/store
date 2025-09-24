@@ -34,16 +34,16 @@ export const subNavbarItem = [
     link: "#",
     icon: <LayoutGrid className="h-4 w-4" />,
     children: [
-      {
-        id: 41,
-        title: "Shop By Brand",
-        link: "#",
-        icon: <LayoutGrid className="h-4 w-4" />,
-      },
+      // {
+      //   id: 41,
+      //   title: "Shop By Brand",
+      //   link: "#",
+      //   icon: <LayoutGrid className="h-4 w-4" />,
+      // },
       {
         id: 42,
         title: "FAQ",
-        link: "#",
+        link: "/faq",
         icon: <Info className="h-4 w-4" />,
       },
     ],
@@ -51,25 +51,25 @@ export const subNavbarItem = [
   {
     id: 5,
     title: "Blog",
-    link: "#",
+    link: "/blog",
     icon: <BookOpen className="h-4 w-4" />,
   },
   {
     id: 6,
     title: "About Us",
-    link: "#",
+    link: "/about-us",
     icon: <Info className="h-4 w-4" />,
   },
   {
     id: 7,
     title: "Contact",
-    link: "#",
+    link: "/contact",
     icon: <Phone className="h-4 w-4" />,
   },
   {
     id: 8,
     title: "Find a store",
-    link: "#",
+    link: "/find-a-store",
     icon: <MapPin className="h-4 w-4" />,
   },
 ];
