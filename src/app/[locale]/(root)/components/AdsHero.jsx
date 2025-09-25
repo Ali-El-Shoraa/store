@@ -5,17 +5,17 @@ import { useQuery } from "@tanstack/react-query";
 export default function AdsHero() {
   // api/ads/hero
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["ads-hero"],
-    queryFn: () => getDataFake(`api/ads/hero`),
-  });
-  console.log("data: ", data?.ads);
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: ["ads-hero"],
+  //   queryFn: () => getDataFake(`api/ads/hero`),
+  // });
+  // console.log("data: ", data?.ads);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  // if (isLoading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error.message}</div>;
   return (
     <div className="h-28 lg:h-auto col-span-2 lg:col-span-1 flex lg:flex-col gap-5">
-      {data?.ads &&
+      {/* {data?.ads &&
         data?.ads?.map((ad, index) => (
           <AnimatedBanner
             key={index}
@@ -25,8 +25,8 @@ export default function AdsHero() {
             title={ad?.title}
             description={ad?.description}
           />
-        ))}
-      {/* <AnimatedBanner
+        ))} */}
+      <AnimatedBanner
         key={1}
         imageUrl={"/image/ads/ads6.png"}
         href="#"
@@ -41,7 +41,7 @@ export default function AdsHero() {
         alt="Paris cityscape with Eiffel Tower"
         title="Paris"
         description="Discover the city of lights"
-      /> */}
+      />
     </div>
   );
 }

@@ -26,53 +26,53 @@ const categories = [
   {
     id: 1,
     name: "Tablets & iPad",
-    href: "/category/tablets-ipad",
+    href: "/search", //"/category/tablets-ipad",
     icon: "📱",
     featured: true,
   },
   {
     id: 2,
     name: "Computers",
-    href: "/category/computers",
+    href: "/search", //"/category/computers",
     icon: "💻",
     featured: true,
   },
   {
     id: 3,
     name: "Smartphones",
-    href: "/category/smartphones",
+    href: "/search", //"/category/smartphones",
     icon: "📱",
     featured: true,
   },
   {
     id: 4,
     name: "Wearables",
-    href: "/category/wearables",
+    href: "/search", //"/category/wearables",
     icon: "⌚",
   },
   {
     id: 5,
     name: "Audio",
-    href: "/category/audio",
+    href: "/search", //"/category/audio",
     icon: "🎧",
     featured: true,
   },
   {
     id: 6,
     name: "Cameras",
-    href: "/category/cameras",
+    href: "/search", //"/category/cameras",
     icon: "📷",
   },
   {
     id: 7,
     name: "Gaming",
-    href: "/category/gaming",
+    href: "/search", //"/category/gaming",
     icon: "🎮",
   },
   {
     id: 8,
     name: "Accessories",
-    href: "/category/accessories",
+    href: "/search", //"/category/accessories",
     icon: "🔌",
   },
 ];
@@ -148,7 +148,7 @@ export default function MobileNavigation() {
                 </Accordion>
 
                 <SheetClose asChild>
-                  <Link
+                  {/* <Link
                     href="/deals"
                     className="flex items-center justify-between p-4 font-medium hover:bg-accent rounded-xl transition-colors"
                   >
@@ -158,7 +158,7 @@ export default function MobileNavigation() {
                     <Badge className="bg-destructive hover:bg-destructive/90">
                       Sale
                     </Badge>
-                  </Link>
+                  </Link> */}
                 </SheetClose>
 
                 <SheetClose asChild>

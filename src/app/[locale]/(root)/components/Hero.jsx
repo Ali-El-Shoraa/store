@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import AdsHero from "./AdsHero";
+import { Link } from "@/i18n/navigation";
 
 export default function Hero() {
   const [api, setApi] = useState();
@@ -70,7 +71,7 @@ export default function Hero() {
                       <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
                         <div className="">
                           <Badge className="mb-3 bg-primary/90 hover:bg-primary text-white">
-                            {slide?.badge || "عرض خاص"}
+                            {slide?.badge || "Special offer"}
                           </Badge>
                           <h2 className="text-2xl md:text-4xl font-bold mb-3 leading-tight">
                             {slide?.title}
@@ -81,17 +82,27 @@ export default function Hero() {
                           <div className="flex flex-wrap gap-3">
                             <Button
                               size="lg"
-                              className="bg-white text-gray-900 hover:bg-gray-100 font-medium rounded-full px-6"
+                              className="bg-white text-gray-900 hover:bg-gray-100 font-medium rounded-full px-6 cursor-pointer"
                             >
-                              تسوق الآن
+                              <Link
+                                href={slide?.link || "/search"}
+                                className="flex items-center"
+                              >
+                                Shop now
+                              </Link>
                               <ArrowRight className="mr-2 h-4 w-4" />
                             </Button>
                             <Button
                               variant="outline"
                               size="lg"
-                              className="text-white border-white hover:bg-white/10 rounded-full"
+                              className="text-white border-white hover:bg-white/10 rounded-full bg-transparent"
                             >
-                              اعرف أكثر
+                              <Link
+                                href={slide?.link || "/search"}
+                                className="flex items-center"
+                              >
+                                learn more
+                              </Link>
                             </Button>
                           </div>
                         </div>

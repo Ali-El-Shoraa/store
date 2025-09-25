@@ -439,7 +439,9 @@ export default function ProductSearchPage() {
               <div>
                 <p className="text-gray-600">
                   Showing{" "}
-                  <span className="font-semibold">{sortedProducts.length}</span>{" "}
+                  <span className="font-semibold">
+                    {sortedProducts?.length}
+                  </span>{" "}
                   products
                 </p>
                 {isFiltered && (
@@ -572,7 +574,7 @@ export default function ProductSearchPage() {
             )}
 
             {/* Products Grid/List */}
-            {sortedProducts.length === 0 ? (
+            {sortedProducts?.length === 0 ? (
               <div className="text-center py-12">
                 <div className="mx-auto h-24 w-24 text-gray-300 mb-4">
                   <Search className="h-24 w-24" />
@@ -587,20 +589,20 @@ export default function ProductSearchPage() {
               </div>
             ) : viewMode === "grid" ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {sortedProducts.map((product) => (
+                {sortedProducts?.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             ) : (
               <div className="space-y-4">
-                {sortedProducts.map((product) => (
+                {sortedProducts?.map((product) => (
                   <ProductListItem key={product.id} product={product} />
                 ))}
               </div>
             )}
 
             {/* Pagination */}
-            {sortedProducts.length > 0 && (
+            {sortedProducts?.length > 0 && (
               <div className="flex justify-center mt-12">
                 <div className="flex items-center space-x-2">
                   <Button variant="outline" size="icon" disabled>
@@ -634,7 +636,7 @@ function ProductCard({ product }) {
 
   return (
     <Card
-      className="overflow-hidden transition-all duration-300 hover:shadow-lg border-0"
+      className="overflow-hidden transition-all duration-300 hover:shadow-lg border-0 p-0"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

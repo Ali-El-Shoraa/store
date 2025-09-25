@@ -129,7 +129,7 @@ export default function DesktopNavigation() {
               {categories.map((category) => (
                 <Link
                   key={category.id}
-                  href={category.href}
+                  href={"/search" ?? category.href}
                   className="flex items-center gap-3 p-3 rounded-xl hover:bg-accent transition-all group/category"
                 >
                   <span className="text-xl flex-shrink-0">{category.icon}</span>
@@ -151,7 +151,7 @@ export default function DesktopNavigation() {
                 .map((category) => (
                   <Link
                     key={category.id}
-                    href={category.href}
+                    href={"/serch" ?? category.href}
                     className="block p-4 rounded-xl bg-accent border hover:border-primary/30 transition-all group/featured"
                   >
                     <div className="flex items-center gap-3 mb-2">
