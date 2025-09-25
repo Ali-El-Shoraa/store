@@ -3,23 +3,21 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 import HeroSubPage from "@/components/HeroSubPage";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getDataFake } from "@/app/api/getDataFake";
 import ValuesSection from "./ValuesSection";
 import TimelineSection from "./TimelineSection";
 import TeamSection from "./TeamSection";
 import TestimonialsSection from "./TestimonialsSection";
 import OurStorySection from "./OurStorySection";
+import { aboutUsOptions } from "@/data/queryOptionsData";
 
 export default function AboutUs() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   //   const videoRef = useRef(null);
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["about-us"],
-    queryFn: () => getDataFake(`api/about`),
-  });
+  const { data, isLoading, error } = useSuspenseQuery(aboutUsOptions);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;

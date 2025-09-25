@@ -8,7 +8,8 @@ import FeaturedTestimonialsCarousel from "./FeaturedTestimonialsCarousel";
 import TestimonialsFilter from "./TestimonialsFilter";
 import TestimonialsGrid from "./TestimonialsGrid";
 import { getDataFake } from "@/app/api/getDataFake";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { testimonialsOptions } from "@/data/queryOptionsData";
 
 export default function Testimonials() {
   const [activeTab, setActiveTab] = useState("all");
@@ -19,10 +20,7 @@ export default function Testimonials() {
     data: { testimonials, categories },
     isLoading,
     error,
-  } = useQuery({
-    queryKey: ["testimonials"],
-    queryFn: () => getDataFake("api/testimonials"),
-  });
+  } = useSuspenseQuery(testimonialsOptions);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading testimonials</div>;
   console.log("testimonials: ", testimonials);

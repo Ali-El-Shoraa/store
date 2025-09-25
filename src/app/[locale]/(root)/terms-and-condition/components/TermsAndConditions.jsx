@@ -1,7 +1,8 @@
 "use client";
 import { getDataFake } from "@/app/api/getDataFake";
+import { termsOptions } from "@/data/queryOptionsData";
 import { Link } from "@/i18n/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { CalendarIcon, FileText, HomeIcon } from "lucide-react";
 
 export default function TermsAndConditions() {
@@ -9,10 +10,7 @@ export default function TermsAndConditions() {
     data: { sections, lastUpdated },
     isLoading,
     error,
-  } = useQuery({
-    queryKey: ["terms"],
-    queryFn: () => getDataFake("api/terms"),
-  });
+  } = useSuspenseQuery(termsOptions);
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">

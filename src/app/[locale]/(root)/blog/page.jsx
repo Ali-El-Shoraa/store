@@ -1,9 +1,10 @@
+import { blogPostsOptions } from "@/data/queryOptionsData";
 import BlogPostsPage from "./components/BlogPostsPage";
 import LayoutWithHydrateQuery from "@/components/LayoutWithHydrateQuery";
 
 export default function BlogPage() {
   return (
-    <LayoutWithHydrateQuery cash={"blog-posts"} endPoint={"api/posts"}>
+    <LayoutWithHydrateQuery queryOptions={blogPostsOptions}>
       <BlogPostsPage />
     </LayoutWithHydrateQuery>
   );

@@ -46,8 +46,9 @@ import {
   Sparkles,
 } from "lucide-react";
 import { getDataFake } from "@/app/api/getDataFake";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import HeroSubPage from "@/components/HeroSubPage";
+import { faqOptions } from "@/data/queryOptionsData";
 
 export default function FAQ() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -285,10 +286,7 @@ export default function FAQ() {
     data: { categories, faqItems },
     isLoading,
     error,
-  } = useQuery({
-    queryKey: ["faq"],
-    queryFn: () => getDataFake("api/faq"),
-  });
+  } = useSuspenseQuery(faqOptions);
 
   const filteredItems = faqItems.filter((item) => {
     const matchesSearch =

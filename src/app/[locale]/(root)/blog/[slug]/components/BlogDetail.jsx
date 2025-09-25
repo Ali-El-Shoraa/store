@@ -31,18 +31,16 @@ import {
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getDataFake } from "@/app/api/getDataFake";
+import { blogPostsDetailsOptions } from "@/data/queryOptionsData";
 
 export default function BlogDetail({ slug }) {
   const {
     data: post,
     isLoading,
     error,
-  } = useQuery({
-    queryKey: ["blog-posts-details", slug],
-    queryFn: () => getDataFake(`api/posts?id=${slug}`),
-  });
+  } = useSuspenseQuery(blogPostsDetailsOptions(slug));
   // console.log("slug: ", slug);
   //   console.log("blogPostsData: ", blogPostsData);
   // const params = 1;

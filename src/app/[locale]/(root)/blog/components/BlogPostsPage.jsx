@@ -11,7 +11,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { getDataFake } from "@/app/api/getDataFake";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import NoArticlesFound from "./NoArticlesFound";
 import BlogPostsCard from "./BlogPostsCard";
 import AboutCard from "./AboutCard";
@@ -22,6 +22,7 @@ import TagsCard from "./TagsCard";
 import FeaturedPost from "./FeaturedPost";
 import CategoriesBlogPostsPage from "./CategoriesBlogPostsPage";
 import HeaderBlogPostsPage from "./HeaderBlogPostsPage";
+import { blogPostsOptions } from "@/data/queryOptionsData";
 
 export default function BlogPostsPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,11 +36,7 @@ export default function BlogPostsPage() {
     data: blogPosts,
     isLoading,
     error,
-  } = useQuery({
-    queryKey: ["blog-posts"],
-    queryFn: () => getDataFake("api/posts"),
-    // suspense: true,
-  });
+  } = useSuspenseQuery(blogPostsOptions);
 
   const categories = [
     { id: "all", name: "All Topics", icon: BookOpen },

@@ -1,9 +1,10 @@
 import LayoutWithHydrateQuery from "@/components/LayoutWithHydrateQuery";
 import Testimonials from "./components/Testimonials";
+import { testimonialsOptions } from "@/data/queryOptionsData";
 
 export default function TestimonialsPage() {
   return (
-    <LayoutWithHydrateQuery cash={"testimonials"} endPoint={"api/testimonials"}>
+    <LayoutWithHydrateQuery queryOptions={testimonialsOptions}>
       <Testimonials />
     </LayoutWithHydrateQuery>
   );
