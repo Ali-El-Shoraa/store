@@ -92,7 +92,7 @@ export default function OurStorySection({
 
       {/* Video Modal */}
       {isVideoPlaying && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 mb-0">
           <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden">
             <Button
               onClick={toggleVideo}
