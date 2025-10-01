@@ -270,7 +270,7 @@ export default function ActionsHeader({ onOpenSearch }) {
                   className="w-full h-12 rounded-xl font-medium text-base"
                 >
                   <Link
-                    href="/checkout"
+                    href="/payment"
                     className="flex items-center justify-center"
                   >
                     Proceed to Checkout

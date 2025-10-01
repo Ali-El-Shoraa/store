@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Play, Target } from "lucide-react";
+import { Play, Target, X } from "lucide-react";
 
 export default function OurStorySection({
   videoUrl,
