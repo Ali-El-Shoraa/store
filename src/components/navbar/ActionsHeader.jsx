@@ -132,7 +132,7 @@ export default function ActionsHeader({ onOpenSearch }) {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer px-4 py-2.5">
-            <Link href="/orders" className="flex items-center w-full">
+            <Link href="/track-order" className="flex items-center w-full">
               <ShoppingBag className="h-4 w-4 mr-2" />
               Orders
             </Link>
