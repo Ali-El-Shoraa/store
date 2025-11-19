@@ -12,7 +12,7 @@ export async function GET(req) {
   const total = 1000;
 
   const posts = Array.from({ length: total }).map((_, i) => ({
-    id: i + 1,
+    id: 1,
     title: faker.lorem.sentence(),
     excerpt: faker.lorem.paragraph(),
     category: faker.helpers.arrayElement([

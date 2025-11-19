@@ -452,9 +452,9 @@ export default function BlogDetail({ slug }) {
             <div className="mb-12">
               <h3 className="text-xl font-semibold mb-6">Related Articles</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {post?.data?.relatedPosts.map((relatedPost) => (
+                {post?.data?.relatedPosts.map((relatedPost, indx) => (
                   <Card
-                    key={relatedPost?.data?.id}
+                    key={indx}
                     className="overflow-hidden group hover:shadow-lg transition-all duration-300"
                   >
                     <div className="relative h-48">
