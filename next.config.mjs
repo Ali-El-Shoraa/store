@@ -69,6 +69,10 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  experimental: {
+    useDeploymentId: true,
+    useDeploymentIdServerActions: true,
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

@@ -1,0 +1,9 @@
+# netlify.toml (في الجذر)
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# لا حاجة لـ [[plugins]] إذا لم تثبت Plugin في package.json
