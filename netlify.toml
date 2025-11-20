@@ -5,14 +5,19 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[functions]
-  node_bundler = "esbuild"
-
+# إعدادات مهمة جداً للـ routing
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/:splat"
+  to = "/.netlify/functions/___netlify-handler"
   status = 200
   force = false
-
-[build.environment]
-  NEXT_USE_NETLIFY_EDGE = "true"
+  
+[[redirects]]
+  from = "/_next/static/*"
+  to = "/_next/static/:splat"
+  status = 200
+  
+[[redirects]]
+  from = "/_next/image*"
+  to = "/_next/image*"
+  status = 200
