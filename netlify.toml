@@ -4,6 +4,6 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "18"
+   NODE_VERSION = "20.9.0"
 
 # لا حاجة لـ [[plugins]] إذا لم تثبت Plugin في package.json
