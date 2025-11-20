@@ -60,6 +60,15 @@ const nextConfig = {
   //     defaultLocale: "ar",
   //     // localeDetection: false,
   //   },
+  reactStrictMode: true,
+  // تجاهل خصائص الإضافات في بيئة التطوير
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+  // منع مشاكل Hydration من الإضافات
+  experimental: {
+    optimizeCss: true,
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

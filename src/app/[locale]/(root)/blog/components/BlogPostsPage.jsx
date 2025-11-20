@@ -150,8 +150,8 @@ export default function BlogPostsPage() {
 
             {/* Blog Posts Grid */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
-              {blogPosts?.data?.map((post) => (
-                <BlogPostsCard key={post.id} post={post} />
+              {blogPosts?.data?.map((post, index) => (
+                <BlogPostsCard key={index} post={post} />
               ))}
             </div>
 

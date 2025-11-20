@@ -1,20 +1,13 @@
 "use server";
 
-import { getLocale } from "next-intl/server";
-
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-console.log("baseURL: ", baseURL);
-export const getDataFake = async (endpoint, options) => {
-  const locale = await getLocale();
-  // console.log("locale: ", locale);
+export const getDataFake = async (endpoint, locale, options) => {
   const url = `${baseURL}${endpoint}`;
 
   const headers = {
     "Content-Type": "application/json",
-    // lang: lang,
     "accept-language": locale,
-    // cache: "no-store",
     ...options?.headers,
   };
 
@@ -23,7 +16,6 @@ export const getDataFake = async (endpoint, options) => {
     headers,
   };
 
-  //
   const response = await fetch(url, config);
 
   if (!response.ok) {

@@ -35,6 +35,60 @@ import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getDataFake } from "@/app/api/getDataFake";
 import { blogPostsDetailsOptions } from "@/data/queryOptionsData";
 
+import { Skeleton } from "@/components/ui/skeleton";
+
+const RelatedPostCard = ({ relatedPost, indx }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const hasValidData = relatedPost?.data;
+  const imageUrl = hasValidData?.image;
+  const title = hasValidData?.title || "عنوان افتراضي";
+
+  return (
+    <Card
+      key={indx}
+      className="overflow-hidden group hover:shadow-lg transition-all duration-300"
+    >
+      <div className="relative h-48 bg-gray-100">
+        {!imageLoaded && imageUrl && <Skeleton className="absolute inset-0" />}
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            onLoad={() => setImageLoaded(true)}
+            style={{ opacity: imageLoaded ? 1 : 0 }}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gray-200">
+            <span className="text-gray-400">لا توجد صورة</span>
+          </div>
+        )}
+      </div>
+      <CardContent className="p-4">
+        <h4 className="font-semibold mb-2 group-hover:text-blue-600 transition-colors duration-300">
+          <Link
+            href={`/blog/${hasValidData?.slug || "#"}`}
+            className="hover:underline"
+          >
+            {title}
+          </Link>
+        </h4>
+        <p className="text-sm text-gray-600 mb-3">
+          {hasValidData?.excerpt || "لا يوجد وصف متاح"}
+        </p>
+        <div className="flex items-center text-sm text-gray-500">
+          <Calendar className="mr-1 h-4 w-4" />
+          <span className="mr-2">{hasValidData?.date || "غير محدد"}</span>
+          <span className="mx-2">•</span>
+          <Clock className="mr-1 h-4 w-4" />
+          <span className="mr-2">{hasValidData?.readTime || "غير محدد"}</span>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
 export default function BlogDetail({ slug }) {
   const {
     data: post,
@@ -452,15 +506,23 @@ export default function BlogDetail({ slug }) {
             <div className="mb-12">
               <h3 className="text-xl font-semibold mb-6">Related Articles</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {post?.data?.relatedPosts.map((relatedPost, indx) => (
+                {post?.data?.relatedPosts?.map((relatedPost, indx) => (
+                  <RelatedPostCard
+                    key={indx}
+                    relatedPost={relatedPost}
+                    indx={indx}
+                  />
+                ))}
+
+                {/* {post?.data?.relatedPosts.map((relatedPost, indx) => (
                   <Card
                     key={indx}
                     className="overflow-hidden group hover:shadow-lg transition-all duration-300"
                   >
                     <div className="relative h-48">
                       <Image
-                        src={relatedPost?.data?.image}
-                        alt={relatedPost?.data?.title}
+                        src={relatedPost?.data?.image ?? ''}
+                        alt={relatedPost?.data?.title ?? "default title"}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
@@ -488,7 +550,7 @@ export default function BlogDetail({ slug }) {
                       </div>
                     </CardContent>
                   </Card>
-                ))}
+                ))} */}
               </div>
             </div>
           </div>
