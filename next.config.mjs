@@ -55,10 +55,6 @@ const nextConfig = {
   //   defaultLocale: "ar",
   //   localeDetection: true,
   // },
-  i18n: {
-    locales: ["en", "ar"],
-    defaultLocale: "en",
-  },
   //   i18n: {
   //     locales: ["ar", "en"],
   //     defaultLocale: "ar",
