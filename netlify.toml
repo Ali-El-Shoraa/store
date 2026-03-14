@@ -1,9 +1,6 @@
-# netlify.toml (في الجذر)
 [build]
   command = "npm run build"
   publish = ".next"
 
-[build.environment]
-   NODE_VERSION = "20.9.0"
-
-# لا حاجة لـ [[plugins]] إذا لم تثبت Plugin في package.json
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
