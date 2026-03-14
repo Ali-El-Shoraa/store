@@ -8,12 +8,12 @@ import {
 } from "./ui/dropdown-menu";
 import { Globe } from "lucide-react";
 import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useTransition } from "react";
+import { useTransition } from "react";
 import { syncLocaleWithCookie } from "@/utils/locale-sync";
 import { Button } from "@/components/ui/button";
 import { EgyptFlag, UKFlag } from "@/lib/localItem";
 import { useLoadingStore } from "@/store/useLoadingStore";
+import { usePathname, useRouter } from "@/i18n/navigation";
 
 export default function LocaleSwitcher() {
   const [isPending, startTransition] = useTransition();

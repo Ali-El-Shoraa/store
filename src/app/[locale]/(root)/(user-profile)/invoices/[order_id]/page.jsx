@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FileText, Download, Printer } from "lucide-react";
 import { formatCurrency } from "@/utils/formatCurrency";
-import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import { useRouter } from "@/i18n/navigation";
 
 const InvoiceDetails = ({ invoice }) => {
   const router = useRouter();

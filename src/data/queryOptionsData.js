@@ -17,6 +17,19 @@ export const blogPostsDetailsOptions = (slug) =>
     queryFn: () => getDataFake(`api/posts?id=${slug}`),
   });
 
+export const ourFeaturesOptions = () =>
+  queryOptions({
+    queryKey: ["our-features"],
+    queryFn: () => getData("our-features"),
+  });
+
+// const queryClient = new QueryClient();
+
+// await queryClient.prefetchQuery({
+//   queryKey: ["our-features"],
+//   queryFn: () => getData("our-features"),
+// });
+
 export const termsOptions = queryOptions({
   queryKey: ["terms"],
   queryFn: () => getDataFake("api/terms"),

@@ -11,9 +11,8 @@ import {
   X,
   LogOut,
 } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -81,7 +80,7 @@ export default function UserProfileLayout({ children }) {
   ];
 
   return (
-    <section className="relative">
+    <section className="relative py-10">
       {/* Mobile menu button (floating) */}
       <Tooltip>
         <TooltipTrigger asChild>
@@ -113,7 +112,7 @@ export default function UserProfileLayout({ children }) {
         )}
 
         {/* Sidebar - Desktop */}
-        <aside className="w-72 shrink-0 sticky top-5 mb-5 bg-background rounded-lg shadow-sm border h-fit hidden lg:block">
+        <aside className="w-72 shrink-0 mb-5 bg-background rounded-lg shadow-sm border h-fit hidden lg:block">
           <div className="flex flex-col items-center p-6 pb-4">
             <div className="relative w-24 h-24 mb-4 group">
               <Avatar className="w-full h-full border-2 border-primary/20">

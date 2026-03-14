@@ -5,6 +5,7 @@ import { getData } from "@/app/api/getData";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import LayoutWithHydrateQuery from "@/components/LayoutWithHydrateQuery";
 import { Suspense } from "react";
+import { ourFeaturesOptions } from "@/data/queryOptionsData";
 
 export const metadata = generateSEOMetadata({
   title: "Ayo 7 - Clean, Minimal Magento 2 Theme",
@@ -15,19 +16,19 @@ export const metadata = generateSEOMetadata({
 });
 
 export default async function Home() {
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ["our-features"],
-    queryFn: () => getData("our-features"),
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: ["our-features"],
+  //   queryFn: () => getData("our-features"),
+  // });
 
   return (
-    <HydrateQuery state={dehydrate(queryClient)}>
-      {/* <LayoutWithHydrateQuery cash={``} children={``}> */}
+    // <HydrateQuery state={dehydrate(queryClient)}>
+    <LayoutWithHydrateQuery queryOptions={ourFeaturesOptions}>
       <IndexHomePage />
       {/* <LocaleSwitcher /> */}
-      {/* </LayoutWithHydrateQuery> */}
-    </HydrateQuery>
+    </LayoutWithHydrateQuery>
+    // </HydrateQuery>
   );
 }
